@@ -4,8 +4,7 @@ VENV = .venv
 install: $(VENV)/bin/activate
 
 $(VENV)/bin/activate: pyproject.toml
-	export POETRY_VIRTUALENVS_IN_PROJECT=true
-	poetry install
+	POETRY_VIRTUALENVS_IN_PROJECT=true poetry install
 
 .PHONY: run
 run: $(VENV)/bin/activate
@@ -13,11 +12,15 @@ run: $(VENV)/bin/activate
 
 .PHONY: lint
 lint: $(VENV)/bin/activate
-	$(VENV)/bin/flake8 app
+	$(VENV)/bin/flake8 .
 
 .PHONY: format
 format: $(VENV)/bin/activate
-	$(VENV)/bin/black app
+	$(VENV)/bin/black .
+
+.PHONY: scrape
+scrape: $(VENV)/bin/activate
+	$(VENV)/bin/python scrape_data.py
 
 .PHONY: clean
 clean:
