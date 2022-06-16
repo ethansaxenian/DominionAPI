@@ -3,8 +3,7 @@ from pydantic import BaseModel, HttpUrl
 from .enums import Expansion, CardType
 
 
-class Card(BaseModel):
-    id: int
+class BaseCard(BaseModel):
     name: str
     expansion: Expansion
     types: list[CardType]
@@ -14,3 +13,7 @@ class Card(BaseModel):
     text: str
     img: HttpUrl
     link: HttpUrl
+
+
+class Card(BaseCard):
+    id: int

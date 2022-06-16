@@ -5,6 +5,7 @@ install: $(VENV)/bin/activate
 
 $(VENV)/bin/activate: pyproject.toml
 	POETRY_VIRTUALENVS_IN_PROJECT=true poetry install
+	poetry shell
 
 .PHONY: run
 run: $(VENV)/bin/activate
@@ -21,6 +22,10 @@ format: $(VENV)/bin/activate
 .PHONY: scrape
 scrape: $(VENV)/bin/activate
 	$(VENV)/bin/python scrape_data.py
+
+.PHONY: seed
+seed: $(VENV)/bin/activate
+	$(VENV)/bin/python seed_db.py
 
 .PHONY: clean
 clean:
