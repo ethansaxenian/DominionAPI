@@ -4,7 +4,7 @@ import json
 from app.schemas.card import BaseCard
 
 from core.config import get_settings
-from db.init_db import db
+from firestore.init_db import db
 
 
 async def seed(data: list[BaseCard]):

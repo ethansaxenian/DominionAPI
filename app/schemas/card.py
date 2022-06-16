@@ -17,3 +17,9 @@ class BaseCard(BaseModel):
 
 class Card(BaseCard):
     id: int
+
+
+class CardInDB(Card):
+    name_case_insensitive: str
+    expansion_case_insensitive: str
+    types_case_insensitive: list[str]

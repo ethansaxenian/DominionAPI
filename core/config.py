@@ -1,6 +1,6 @@
 from functools import cache
 import os
-from pydantic import BaseSettings
+from pydantic import BaseSettings, HttpUrl
 
 
 class Settings(BaseSettings):
@@ -13,6 +13,7 @@ class Settings(BaseSettings):
     AUTHOR_EMAIL: str = "ethansaxenian@gmail.com"
     LICENSE: str = "MIT"
     FIRESTORE_DOCUMENT_NAME: str = "cards"
+    CARD_LIST_URL: HttpUrl = "http://wiki.dominionstrategy.com/index.php/List_of_cards"
 
     class Config:
         env_file = ".env"

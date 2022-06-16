@@ -1,6 +1,11 @@
+import re
+
 import requests
 from bs4 import BeautifulSoup
 import json
+
+from core.config import get_settings
+from core.utils import case_insensitive
 
 
 def get_cost(columns):
@@ -75,8 +80,11 @@ def get_card_data(soup):
         cards.append(
             {
                 "name": name,
+                "name_case_insensitive": case_insensitive(name),
                 "expansion": expansion,
+                "expansion_case_insensitive": case_insensitive(expansion),
                 "types": types,
+                "types_case_insensitive": [case_insensitive(t) for t in types],
                 "coins": cost["coins"],
                 "potions": cost["potions"],
                 "debt": cost["debt"],
@@ -95,10 +103,13 @@ def write_to_file(data, path):
 
 
 if __name__ == "__main__":
-    URL = "http://wiki.dominionstrategy.com/index.php/List_of_cards"
+    settings = get_settings()
+
+    URL = settings.CARD_LIST_URL
     page = requests.get(URL)
 
     soup = BeautifulSoup(page.content, "html.parser")
 
     data = get_card_data(soup)
-    write_to_file(data, "./data/dominion_cards.json")
+
+    write_to_file(data, f"{settings.ROOT_DIR}/data/dominion_cards.json")
