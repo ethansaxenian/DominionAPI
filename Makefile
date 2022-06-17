@@ -1,6 +1,5 @@
 VENV = .venv
 PYTHON = $(VENV)/bin/python
-DATA_PATH = data/dominion_cards.json
 
 .DEFAULT_GOAL = help
 
@@ -18,10 +17,10 @@ help:
 	@echo "        Format the code with black."
 	@echo "    scrape"
 	@echo "        Scrape dominion card data from the web."
-	@echo "    seed-<db>"
-	@echo "        Seed <db> with dominion card data."
+	@echo "    seed"
+	@echo "        Seed the database with dominion card data."
 	@echo "    clean"
-	@echo "        Remove the virtual environment and python caches."
+	@echo "        Remove the virtual environment, python caches, and card data."
 
 
 .PHONY: install
@@ -46,12 +45,13 @@ format: $(VENV)/bin/activate
 .PHONY: scrape
 scrape: data/dominion_cards.json
 
-$(DATA_PATH): $(VENV)/bin/activate
+data/dominion_cards.json: $(VENV)/bin/activate
+	mkdir -p data
 	$(PYTHON) scrape_data.py
 
 .PHONY: seed
-seed-%: $(VENV)/bin/activate $(DATA_PATH)
-	$(PYTHON) seed_db.py $*
+seed: $(VENV)/bin/activate data/dominion_cards.json
+	$(PYTHON) seed_db.py
 
 .PHONY: clean
 clean:

@@ -8,4 +8,5 @@ settings = get_settings()
 credentials = service_account.Credentials.from_service_account_file(
     settings.GOOGLE_APPLICATION_CREDENTIALS
 )
-db = firestore.AsyncClient(credentials=credentials)
+
+firestore_db = firestore.AsyncClient(credentials=credentials)

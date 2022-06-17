@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 
 from app.schemas import Card
 from core.config import Settings, get_settings
-from firestore import db, get_all_cards, get_card_by_id
+from db import db, get_all_cards, get_card_by_id
 
 router = APIRouter()
 

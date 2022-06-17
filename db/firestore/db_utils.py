@@ -8,12 +8,12 @@ from core.utils import case_insensitive
 CardAsDict = dict[str, Any]
 
 
-async def get_all_cards(db: AsyncClient, settings: Settings) -> list[CardAsDict]:
+async def firestore_get_cards(db: AsyncClient, settings: Settings) -> list[CardAsDict]:
     docs = db.collection(settings.FIRESTORE_DOCUMENT_NAME).stream()
     return [doc.to_dict() async for doc in docs]
 
 
-async def get_card_by_id(
+async def firestore_get_card(
     db: AsyncClient, settings: Settings, id: str
 ) -> Optional[CardAsDict]:
     doc = await db.collection(settings.FIRESTORE_DOCUMENT_NAME).document(id).get()
@@ -23,7 +23,7 @@ async def get_card_by_id(
         return None
 
 
-async def search_cards_with_query(
+async def firestore_search_cards(
     db: AsyncClient,
     settings: Settings,
     name: Optional[str] = None,

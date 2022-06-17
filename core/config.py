@@ -1,6 +1,11 @@
+from enum import Enum
 from functools import cache
 import os
 from pydantic import BaseSettings, HttpUrl
+
+
+class DBType(Enum):
+    FIRESTORE = "firestore"
 
 
 class Settings(BaseSettings):
@@ -16,6 +21,7 @@ class Settings(BaseSettings):
     FIRESTORE_DOCUMENT_NAME: str = "cards"
     GOOGLE_APPLICATION_CREDENTIALS: str
     CARD_LIST_URL: HttpUrl = "http://wiki.dominionstrategy.com/index.php/List_of_cards"
+    DB_TYPE: DBType
 
     class Config:
         env_file = ".env"

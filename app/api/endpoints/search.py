@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends, Query
 
 from app.schemas import Card
 from core.config import Settings, get_settings
-from firestore import db, search_cards_with_query
+from db import db, search_cards_with_query
 
 router = APIRouter()
 
