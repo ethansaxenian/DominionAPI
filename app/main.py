@@ -1,4 +1,5 @@
 import markdown
+from bs4 import BeautifulSoup
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 
@@ -21,4 +22,8 @@ app.include_router(api_router, prefix=settings.API_PREFIX)
 def readme():
     readme_file = open(f"{settings.ROOT_DIR}/README.md", "r")
     markdown_str = markdown.markdown(readme_file.read(), extensions=["fenced_code"])
-    return markdown_str
+    html = BeautifulSoup(markdown_str, "html.parser")
+    for tag in html.find_all("a"):
+        tag['rel'] = "noopener noreferrer"
+        tag['target'] = "_blank"
+    return html.prettify()
