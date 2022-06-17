@@ -4,8 +4,6 @@ DATA_PATH = data/dominion_cards.json
 
 .DEFAULT_GOAL = help
 
-all: install scrape seed-firestore run
-
 help:
 	@echo "Usage: make [help|install|run|lint|format|scrape|seed|clean]"
 	@echo "    help"
