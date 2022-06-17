@@ -5,17 +5,17 @@ from google.cloud.firestore_v1 import AsyncClient
 from core.config import Settings
 from core.utils import case_insensitive
 
-CardFromDB = dict[str, Any]
+CardAsDict = dict[str, Any]
 
 
-async def get_all_cards(db: AsyncClient, settings: Settings) -> list[CardFromDB]:
+async def get_all_cards(db: AsyncClient, settings: Settings) -> list[CardAsDict]:
     docs = db.collection(settings.FIRESTORE_DOCUMENT_NAME).stream()
     return [doc.to_dict() async for doc in docs]
 
 
 async def get_card_by_id(
     db: AsyncClient, settings: Settings, id: str
-) -> Optional[CardFromDB]:
+) -> Optional[CardAsDict]:
     doc = await db.collection(settings.FIRESTORE_DOCUMENT_NAME).document(id).get()
     if doc.exists:
         return doc.to_dict()
@@ -33,7 +33,7 @@ async def search_cards_with_query(
     potions: Optional[int] = None,
     debt: Optional[int] = None,
     in_supply: Optional[bool] = None,
-) -> list[CardFromDB]:
+) -> list[CardAsDict]:
     cards_ref = db.collection(settings.FIRESTORE_DOCUMENT_NAME)
 
     query = cards_ref

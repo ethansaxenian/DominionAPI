@@ -3,7 +3,23 @@ from bs4 import BeautifulSoup
 import json
 
 from core.config import get_settings
-from core.utils import case_insensitive
+
+NON_SUPPLY_TYPES = [
+    "Ally",
+    "Artifact",
+    "Boon",
+    "Event",
+    "Heirloom",
+    "Hex",
+    "Landmark",
+    "Prize",
+    "Project",
+    "Shelter",
+    "Spirit",
+    "State",
+    "Way",
+    "Zombie",
+]
 
 
 def get_cost(columns):
@@ -78,11 +94,8 @@ def get_card_data(soup):
         cards.append(
             {
                 "name": name,
-                "name_case_insensitive": case_insensitive(name),
                 "expansion": expansion,
-                "expansion_case_insensitive": case_insensitive(expansion),
                 "types": types,
-                "types_case_insensitive": [case_insensitive(t) for t in types],
                 "coins": cost["coins"],
                 "potions": cost["potions"],
                 "debt": cost["debt"],
@@ -90,8 +103,7 @@ def get_card_data(soup):
                 "img": img,
                 "link": link,
                 "in_supply": "this is not in the supply" not in text
-                and "Heirloom" not in types
-                and "Shelter" not in types,
+                and all(t not in NON_SUPPLY_TYPES for t in types),
             }
         )
 
