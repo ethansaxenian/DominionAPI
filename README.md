@@ -10,9 +10,9 @@ Powered by FastAPI
 DominionAPI currently supports cloud firestore. 
 
 #### Set up a cloud firestore database:
-1. Create a firestore database by following the instructions at https://firebase.google.com/docs/firestore/quickstart#create.
+1. Create a firestore database by following the instructions at [https://firebase.google.com/docs/firestore/quickstart#create](https://firebase.google.com/docs/firestore/quickstart#create).
 
-2. Ccreate a service account for your database by following the instructions at https://firebase.google.com/docs/admin/setup#initialize-sdk.
+2. Ccreate a service account for your database by following the instructions at [https://firebase.google.com/docs/admin/setup#initialize-sdk](https://firebase.google.com/docs/admin/setup#initialize-sdk).
 
 3. Add the path to the service account JSON file to a `.env` file in the project:
    ```shell
@@ -22,7 +22,7 @@ DominionAPI currently supports cloud firestore.
 5. Set up the project to use firestore by setting `DB_TYPE=firestore` in the `.env` file.
 
 ### Run the development server:
-Make sure you have `poetry` installed on your machine. Instructions can be found at https://python-poetry.org/docs/master.
+Make sure you have `poetry` installed on your machine. Instructions can be found at [https://python-poetry.org/docs/master](https://python-poetry.org/docs/master).
 
 Running `make run` will install the project dependencies and run the development server.
 
