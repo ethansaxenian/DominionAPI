@@ -125,4 +125,4 @@ if __name__ == "__main__":
 
     data = get_card_data(soup)
 
-    write_to_file(data, f"{settings.ROOT_DIR}/data/dominion_cards.json")
+    write_to_file(data, settings.DATA_PATH)
