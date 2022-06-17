@@ -32,6 +32,7 @@ async def search_cards_with_query(
     coins: Optional[int] = None,
     potions: Optional[int] = None,
     debt: Optional[int] = None,
+    in_supply: Optional[bool] = None,
 ) -> list[CardFromDB]:
     cards_ref = db.collection(settings.FIRESTORE_DOCUMENT_NAME)
 
@@ -52,5 +53,7 @@ async def search_cards_with_query(
         query = query.where("potions", "==", potions)
     if debt:
         query = query.where("debt", "==", debt)
+    if in_supply:
+        query = query.where("in_supply", "==", in_supply)
 
     return [doc.to_dict() async for doc in query.stream()]

@@ -1,6 +1,6 @@
 from typing import Optional
 
-from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi import APIRouter, Depends, Query
 
 from app.schemas import Card
 from core.config import Settings, get_settings
@@ -19,10 +19,8 @@ async def search_cards(
     coins: Optional[int] = Query(default=None),
     potions: Optional[int] = Query(default=None),
     debt: Optional[int] = Query(default=None),
+    in_supply: Optional[bool] = Query(default=None, alias="in-supply"),
 ):
-    cards = await search_cards_with_query(db, settings, name, expansion, card_type, coins, potions, debt)
-
-    if cards:
-        return cards
-    else:
-        raise HTTPException(status_code=404, detail="No cards found")
+    return await search_cards_with_query(
+        db, settings, name, expansion, card_type, coins, potions, debt, in_supply
+    )

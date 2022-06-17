@@ -1,5 +1,3 @@
-import re
-
 import requests
 from bs4 import BeautifulSoup
 import json
@@ -91,6 +89,9 @@ def get_card_data(soup):
                 "text": text,
                 "img": img,
                 "link": link,
+                "in_supply": "this is not in the supply" not in text
+                and "Heirloom" not in types
+                and "Shelter" not in types,
             }
         )
 

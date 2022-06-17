@@ -13,6 +13,7 @@ class BaseCard(BaseModel):
     text: str
     img: HttpUrl
     link: HttpUrl
+    in_supply: bool
 
 
 class Card(BaseCard):
