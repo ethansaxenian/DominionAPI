@@ -8,6 +8,7 @@ settings = get_settings()
 credentials = service_account.Credentials.from_service_account_info(
     {
         "project_id": settings.FIRESTORE_PROJECT_ID,
+        "private_key_id": settings.FIRESTORE_PRIVATE_KEY_ID,
         "private_key": settings.FIRESTORE_PRIVATE_KEY,
         "client_email": settings.FIRESTORE_CLIENT_EMAIL,
         "token_uri": settings.FIRESTORE_TOKEN_URI,

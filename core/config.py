@@ -19,6 +19,7 @@ class Settings(BaseSettings):
     LICENSE: str = "MIT"
     FIRESTORE_COLLECTION_NAME: str = "cards"
     FIRESTORE_PROJECT_ID: str
+    FIRESTORE_PRIVATE_KEY_ID: str
     FIRESTORE_PRIVATE_KEY: str
     FIRESTORE_CLIENT_EMAIL: str
     FIRESTORE_TOKEN_URI: str
