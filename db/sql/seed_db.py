@@ -11,10 +11,9 @@ async def seed_sqlalchemy(data: list[CardAsDict], settings: Settings):
     for card in data:
         print(card["name"])
         db_card = models.Card(
-            **{k: v for k, v in card.items() if k != "types"},
+            **card,
             name_case_insensitive=case_insensitive(card["name"]),
             expansion_case_insensitive=case_insensitive(card["expansion"]),
-            types=card["types"],
             types_case_insensitive=[case_insensitive(t) for t in card["types"]]
         )
         sqlalchemy_db.add(db_card)
