@@ -19,6 +19,9 @@ class BaseCard(BaseModel):
 class Card(BaseCard):
     id: int
 
+    class Config:
+        orm_mode = True
+
 
 class CardInDB(Card):
     name_case_insensitive: str

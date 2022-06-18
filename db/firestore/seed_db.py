@@ -1,9 +1,11 @@
 from core.config import Settings
-from core.utils import case_insensitive
-from db.firestore import CardAsDict, firestore_db
+from core.utils import CardAsDict, case_insensitive
+from db.firestore import get_firestore_db
 
 
 async def seed_firestore(data: list[CardAsDict], settings: Settings):
+    firestore_db = get_firestore_db()
+
     for id, card in enumerate(data):
         print(card["name"])
         await firestore_db.collection(settings.FIRESTORE_COLLECTION_NAME).document(

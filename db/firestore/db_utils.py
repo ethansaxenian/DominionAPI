@@ -1,11 +1,9 @@
-from typing import Any, Optional
+from typing import Optional
 
 from google.cloud.firestore_v1 import AsyncClient
 
 from core.config import Settings
-from core.utils import case_insensitive
-
-CardAsDict = dict[str, Any]
+from core.utils import CardAsDict, case_insensitive
 
 
 async def firestore_get_cards(db: AsyncClient, settings: Settings) -> list[CardAsDict]:

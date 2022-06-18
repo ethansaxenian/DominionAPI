@@ -1,10 +1,12 @@
-from typing import Optional
+from typing import Optional, Union
 
 from fastapi import APIRouter, Depends, Query
+from google.cloud.firestore_v1 import AsyncClient
+from sqlalchemy.orm import Session
 
 from app.schemas import Card
 from core.config import Settings, get_settings
-from db import db, search_cards_with_query
+from db import get_db, search_cards_with_query
 
 router = APIRouter()
 
@@ -12,6 +14,7 @@ router = APIRouter()
 @router.get("/", response_model=list[Card])
 async def search_cards(
     settings: Settings = Depends(get_settings),
+    db: Union[Session, AsyncClient] = Depends(get_db),
     name: Optional[str] = Query(default=None),
     expansion: Optional[str] = Query(default=None),
     card_type: Optional[str] = Query(default=None, alias="type"),

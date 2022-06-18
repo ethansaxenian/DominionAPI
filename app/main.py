@@ -24,6 +24,6 @@ def readme():
     markdown_str = markdown.markdown(readme_file.read(), extensions=["fenced_code"])
     html = BeautifulSoup(markdown_str, "html.parser")
     for tag in html.find_all("a"):
-        tag['rel'] = "noopener noreferrer"
-        tag['target'] = "_blank"
+        tag["rel"] = "noopener noreferrer"
+        tag["target"] = "_blank"
     return html.prettify()

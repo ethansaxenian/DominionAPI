@@ -16,3 +16,7 @@ credentials = service_account.Credentials.from_service_account_info(
 )
 
 firestore_db = firestore.AsyncClient(credentials=credentials)
+
+
+def get_firestore_db():
+    return firestore_db
