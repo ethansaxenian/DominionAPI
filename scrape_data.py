@@ -106,8 +106,6 @@ def get_card_data(soup):
                 and all(t not in NON_SUPPLY_TYPES for t in types),
             }
         )
-        if name == "Horse":
-            print(cards[-1])
 
     return cards
 

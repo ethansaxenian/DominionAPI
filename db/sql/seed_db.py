@@ -6,6 +6,7 @@ from db.sql import Base, engine, get_sqlalchemy_db, models
 async def seed_sqlalchemy(data: list[CardAsDict], settings: Settings):
     sqlalchemy_db = next(get_sqlalchemy_db())
 
+    Base.metadata.drop_all(bind=engine)
     Base.metadata.create_all(bind=engine)
 
     for card in data:
