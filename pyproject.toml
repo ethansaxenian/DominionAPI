@@ -9,7 +9,7 @@ repository = "https://github.com/ethansaxenian/DominionAPI"
 homepage = "https://github.com/ethansaxenian/DominionAPI"
 
 [tool.poetry.dependencies]
-python = "3.9"
+python = "^3.9"
 fastapi = "^0.78.0"
 uvicorn = "^0.17.6"
 Markdown = "^3.3.7"
