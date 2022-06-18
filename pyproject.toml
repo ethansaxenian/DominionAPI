@@ -19,6 +19,7 @@ firebase-admin = "^5.2.0"
 python-dotenv = "^0.20.0"
 google-auth = "^2.8.0"
 SQLAlchemy = "^1.4.37"
+psycopg2-binary = "^2.9.3"
 
 [tool.poetry.dev-dependencies]
 black = "^22.3.0"
