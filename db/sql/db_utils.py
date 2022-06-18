@@ -1,5 +1,6 @@
 from typing import Optional
 
+from sqlalchemy import func
 from sqlalchemy.orm import Session
 
 from core.config import Settings
@@ -16,6 +17,13 @@ async def sqlalchemy_get_card(
     db: Session, settings: Settings, id: str
 ) -> Optional[CardAsDict]:
     card = db.query(models.Card).filter(models.Card.id == id).first()
+    return card
+
+
+async def seqlalchemy_get_random_card(
+    db: Session, settings: Settings
+) -> Optional[CardAsDict]:
+    card = db.query(models.Card).order_by(func.random()).first()
     return card
 
 

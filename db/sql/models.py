@@ -1,4 +1,4 @@
-from sqlalchemy import ARRAY, Boolean, Column, Integer, JSON, String
+from sqlalchemy import Boolean, Column, Integer, JSON, String
 
 from .init_db import Base
 
@@ -7,7 +7,7 @@ class Card(Base):
     __tablename__ = "cards"
 
     id = Column(Integer, primary_key=True)
-    name = Column(String, nullable=False)
+    name = Column(String, nullable=False, unique=True)
     name_case_insensitive = Column(String, nullable=False)
     expansion = Column(String, nullable=False)
     expansion_case_insensitive = Column(String, nullable=False)

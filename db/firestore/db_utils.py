@@ -1,3 +1,4 @@
+import random
 from typing import Optional
 
 from google.cloud.firestore_v1 import AsyncClient
@@ -17,6 +18,16 @@ async def firestore_get_card(
     doc = await db.collection(settings.FIRESTORE_COLLECTION_NAME).document(id).get()
     if doc.exists:
         return doc.to_dict()
+    else:
+        return None
+
+
+async def firestore_get_random_card(
+    db: AsyncClient, settings: Settings
+) -> Optional[CardAsDict]:
+    cards = await firestore_get_cards(db, settings)
+    if cards:
+        return random.choice(cards)
     else:
         return None
 
