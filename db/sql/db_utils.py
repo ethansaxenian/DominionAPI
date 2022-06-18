@@ -49,26 +49,26 @@ async def sqlalchemy_search_cards(
     ):
         return []
 
-    query = db.query(models.Card)
+    cards = db.query(models.Card)
     if name:
-        query = query.filter(
+        cards = cards.filter(
             models.Card.name_case_insensitive == case_insensitive(name)
         ).all()
     if expansion:
-        query = query.filter(
+        cards = cards.filter(
             models.Card.expansion_case_insensitive == case_insensitive(expansion)
         ).all()
     if card_type:
-        query = query.filter(
+        cards = cards.filter(
             models.Card.types_case_insensitive.contains(case_insensitive(card_type))
         ).all()
     if coins:
-        query = query.filter(models.Card.coins == coins).all()
+        cards = cards.filter(models.Card.coins == coins).all()
     if potions:
-        query = query.filter(models.Card.potions == potions).all()
+        cards = cards.filter(models.Card.potions == potions).all()
     if debt:
-        query = query.filter(models.Card.debt == debt).all()
+        cards = cards.filter(models.Card.debt == debt).all()
     if in_supply:
-        query = query.filter(models.Card.in_supply == in_supply).all()
+        cards = cards.filter(models.Card.in_supply == in_supply).all()
 
-    return query
+    return cards

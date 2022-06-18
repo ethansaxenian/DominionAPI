@@ -3460,7 +3460,7 @@
     "text": "+2 Actions\nReturn this to the Madman pile. If you do, +1 Card per card in your hand.\n(This is not in the Supply.)",
     "img": "http://wiki.dominionstrategy.com/images/thumb/1/19/Madman.jpg/200px-Madman.jpg",
     "link": "http://wiki.dominionstrategy.com/index.php/Madman",
-    "in_supply": true
+    "in_supply": false
   },
   {
     "name": "Mercenary",
@@ -3475,7 +3475,7 @@
     "text": "You may trash 2 cards from your hand. If you did, +2 Cards, +$2, and each other player discards down to 3 cards in hand.\n(This is not in the Supply.)",
     "img": "http://wiki.dominionstrategy.com/images/thumb/c/c5/Mercenary.jpg/200px-Mercenary.jpg",
     "link": "http://wiki.dominionstrategy.com/index.php/Mercenary",
-    "in_supply": true
+    "in_supply": false
   },
   {
     "name": "Spoils",
@@ -3489,7 +3489,7 @@
     "text": "$3\nWhen you play this, return it to the Spoils pile.\n(This is not in the Supply.)",
     "img": "http://wiki.dominionstrategy.com/images/thumb/9/9f/Spoils.jpg/200px-Spoils.jpg",
     "link": "http://wiki.dominionstrategy.com/index.php/Spoils",
-    "in_supply": true
+    "in_supply": false
   },
   {
     "name": "Hovel",
@@ -4459,7 +4459,7 @@
     "text": "+$2\n+$1 per other Attack you have in play. Each other player with 4 or more cards in hand discards a card.\nWhen you discard this from play, you may exchange it for a Fugitive.\n(This is not in the Supply.)",
     "img": "http://wiki.dominionstrategy.com/images/thumb/e/e3/Soldier.jpg/200px-Soldier.jpg",
     "link": "http://wiki.dominionstrategy.com/index.php/Soldier",
-    "in_supply": true
+    "in_supply": false
   },
   {
     "name": "Fugitive",
@@ -4474,7 +4474,7 @@
     "text": "+2 Cards\n+1 Action\nDiscard a card.\nWhen you discard this from play, you may exchange it for a Disciple.\n(This is not in the Supply.)",
     "img": "http://wiki.dominionstrategy.com/images/thumb/b/bd/Fugitive.jpg/200px-Fugitive.jpg",
     "link": "http://wiki.dominionstrategy.com/index.php/Fugitive",
-    "in_supply": true
+    "in_supply": false
   },
   {
     "name": "Disciple",
@@ -4489,7 +4489,7 @@
     "text": "You may play an Action card from your hand twice. Gain a copy of it.\nWhen you discard this from play, you may exchange it for a Teacher.\n(This is not in the Supply.)",
     "img": "http://wiki.dominionstrategy.com/images/thumb/9/92/Disciple.jpg/200px-Disciple.jpg",
     "link": "http://wiki.dominionstrategy.com/index.php/Disciple",
-    "in_supply": true
+    "in_supply": false
   },
   {
     "name": "Teacher",
@@ -4504,7 +4504,7 @@
     "text": "Put this on your Tavern mat.\nAt the start of your turn, you may call this, to move your +1 Card, +1 Action, +1 Buy, or +$1 token to an Action Supply pile you have no tokens on. (When you play a card from that pile, you first get that bonus.)\n(This is not in the Supply.)",
     "img": "http://wiki.dominionstrategy.com/images/thumb/2/27/Teacher.jpg/200px-Teacher.jpg",
     "link": "http://wiki.dominionstrategy.com/index.php/Teacher",
-    "in_supply": true
+    "in_supply": false
   },
   {
     "name": "Treasure Hunter",
@@ -4519,7 +4519,7 @@
     "text": "+1 Action\n+$1\nGain a Silver per card the player to your right gained on their last turn.\nWhen you discard this from play, you may exchange it for a Warrior.\n(This is not in the Supply.)",
     "img": "http://wiki.dominionstrategy.com/images/thumb/c/ce/Treasure_Hunter.jpg/200px-Treasure_Hunter.jpg",
     "link": "http://wiki.dominionstrategy.com/index.php/Treasure_Hunter",
-    "in_supply": true
+    "in_supply": false
   },
   {
     "name": "Warrior",
@@ -4535,7 +4535,7 @@
     "text": "+2 Cards\nOnce per Traveller you have in play (including this), each other player discards the top card of their deck and trashes it if it costs $3 or $4.\nWhen you discard this from play, you may exchange it for a Hero.\n(This is not in the Supply.)",
     "img": "http://wiki.dominionstrategy.com/images/thumb/9/95/Warrior.jpg/200px-Warrior.jpg",
     "link": "http://wiki.dominionstrategy.com/index.php/Warrior",
-    "in_supply": true
+    "in_supply": false
   },
   {
     "name": "Hero",
@@ -4550,7 +4550,7 @@
     "text": "+$2\nGain a Treasure.\nWhen you discard this from play, you may exchange it for a Champion.\n(This is not in the Supply.)",
     "img": "http://wiki.dominionstrategy.com/images/thumb/2/26/Hero.jpg/200px-Hero.jpg",
     "link": "http://wiki.dominionstrategy.com/index.php/Hero",
-    "in_supply": true
+    "in_supply": false
   },
   {
     "name": "Champion",
@@ -4565,7 +4565,7 @@
     "text": "+1 Action\nFor the rest of the game, when another player plays an Attack card, it doesn't affect you, and when you play an Action, +1 Action.\n(This stays in play. This is not in the Supply.)",
     "img": "http://wiki.dominionstrategy.com/images/thumb/4/41/Champion.jpg/200px-Champion.jpg",
     "link": "http://wiki.dominionstrategy.com/index.php/Champion",
-    "in_supply": true
+    "in_supply": false
   },
   {
     "name": "Engineer",
@@ -6086,7 +6086,7 @@
     "text": "+1 Action\nReturn this to its pile. If you did, gain a card to your hand costing up to $6.\n(This is not in the Supply.)",
     "img": "http://wiki.dominionstrategy.com/images/thumb/6/68/Wish.jpg/200px-Wish.jpg",
     "link": "http://wiki.dominionstrategy.com/index.php/Wish",
-    "in_supply": true
+    "in_supply": false
   },
   {
     "name": "Bat",
@@ -6100,7 +6100,7 @@
     "text": "Trash up to 2 cards from your hand. If you trashed at least one, exchange this for a Vampire.\n(This is not in the Supply.)",
     "img": "http://wiki.dominionstrategy.com/images/thumb/2/20/Bat.jpg/200px-Bat.jpg",
     "link": "http://wiki.dominionstrategy.com/index.php/Bat",
-    "in_supply": true
+    "in_supply": false
   },
   {
     "name": "Imp",
@@ -7452,7 +7452,7 @@
     "text": "+2 Cards\n+1 Action\nReturn this to its pile.\n(This is not in the Supply.)",
     "img": "http://wiki.dominionstrategy.com/images/thumb/3/39/Horse.jpg/200px-Horse.jpg",
     "link": "http://wiki.dominionstrategy.com/index.php/Horse",
-    "in_supply": true
+    "in_supply": false
   },
   {
     "name": "Camel Train",

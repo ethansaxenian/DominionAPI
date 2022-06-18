@@ -51,7 +51,7 @@ data/dominion_cards.json: $(VENV)/bin/activate
 
 .PHONY: seed
 seed: $(VENV)/bin/activate data/dominion_cards.json
-	$(PYTHON) seed_db.py
+	rm dominion.db && $(PYTHON) seed_db.py
 
 .PHONY: clean
 clean:

@@ -102,10 +102,12 @@ def get_card_data(soup):
                 "text": text,
                 "img": img,
                 "link": link,
-                "in_supply": "this is not in the supply" not in text
+                "in_supply": "this is not in the supply" not in text.lower()
                 and all(t not in NON_SUPPLY_TYPES for t in types),
             }
         )
+        if name == "Horse":
+            print(cards[-1])
 
     return cards
 
