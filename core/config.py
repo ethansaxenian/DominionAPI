@@ -12,14 +12,16 @@ class Settings(BaseSettings):
     PROJECT_NAME: str = "Dominion API"
     PROJECT_DESCRIPTION: str = "An API for the game Dominion"
     API_PREFIX: str = "/api"
-    PROJECT_ID: str
     ROOT_DIR: str = os.path.realpath(os.path.join(os.path.dirname(__file__), ".."))
     DATA_PATH: str = os.path.join(ROOT_DIR, "data/dominion_cards.json")
     AUTHOR_NAME: str = "Ethan Saxenian"
     AUTHOR_EMAIL: str = "ethansaxenian@gmail.com"
     LICENSE: str = "MIT"
-    FIRESTORE_DOCUMENT_NAME: str = "cards"
-    GOOGLE_APPLICATION_CREDENTIALS: str
+    FIRESTORE_COLLECTION_NAME: str = "cards"
+    FIRESTORE_PROJECT_ID: str
+    FIRESTORE_PRIVATE_KEY: str
+    FIRESTORE_CLIENT_EMAIL: str
+    FIRESTORE_TOKEN_URI: str
     CARD_LIST_URL: HttpUrl = "http://wiki.dominionstrategy.com/index.php/List_of_cards"
     DB_TYPE: DBType
 

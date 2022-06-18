@@ -9,14 +9,14 @@ CardAsDict = dict[str, Any]
 
 
 async def firestore_get_cards(db: AsyncClient, settings: Settings) -> list[CardAsDict]:
-    docs = db.collection(settings.FIRESTORE_DOCUMENT_NAME).stream()
+    docs = db.collection(settings.FIRESTORE_COLLECTION_NAME).stream()
     return [doc.to_dict() async for doc in docs]
 
 
 async def firestore_get_card(
     db: AsyncClient, settings: Settings, id: str
 ) -> Optional[CardAsDict]:
-    doc = await db.collection(settings.FIRESTORE_DOCUMENT_NAME).document(id).get()
+    doc = await db.collection(settings.FIRESTORE_COLLECTION_NAME).document(id).get()
     if doc.exists:
         return doc.to_dict()
     else:
@@ -34,7 +34,7 @@ async def firestore_search_cards(
     debt: Optional[int] = None,
     in_supply: Optional[bool] = None,
 ) -> list[CardAsDict]:
-    cards_ref = db.collection(settings.FIRESTORE_DOCUMENT_NAME)
+    cards_ref = db.collection(settings.FIRESTORE_COLLECTION_NAME)
 
     query = cards_ref
     if name:

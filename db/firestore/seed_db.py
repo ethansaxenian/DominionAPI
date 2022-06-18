@@ -6,7 +6,7 @@ from db.firestore import CardAsDict, firestore_db
 async def seed_firestore(data: list[CardAsDict], settings: Settings):
     for id, card in enumerate(data):
         print(card["name"])
-        await firestore_db.collection(settings.FIRESTORE_DOCUMENT_NAME).document(
+        await firestore_db.collection(settings.FIRESTORE_COLLECTION_NAME).document(
             str(id)
         ).set(
             {
