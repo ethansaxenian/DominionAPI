@@ -55,6 +55,6 @@ seed: $(VENV)/bin/activate data/dominion_cards.json
 
 .PHONY: clean
 clean:
-	rm -rf $(VENV) $(DATA_PATH)
+	rm -rf $(VENV) $(DATA_PATH) dominion.db
 	find . -type d -name  "__pycache__" -exec rm -r {} +
 	@echo "to exit the virtual environment, run 'deactivate'"

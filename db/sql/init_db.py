@@ -12,7 +12,7 @@ db_url = settings.DATABASE_URL
 if db_url.startswith("postgres://"):
     db_url = db_url.replace("postgres://", "postgresql://", 1)
 
-engine = create_engine(db_url, connect_args={"check_same_thread": False})
+engine = create_engine(db_url, connect_args={"check_same_thread": not db_url.startswith("sqlite")})
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base = declarative_base()
