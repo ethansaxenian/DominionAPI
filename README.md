@@ -22,12 +22,12 @@ DominionAPI currently supports Google Cloud Firestore and the various [dialects 
    FIRESTORE_TOKEN_URI=<"token_uri">
    ```
 
-4. Set up the project to use Firestore by setting `DB_TYPE=firestore` in the `.env` file.
+4. Set up the project to use Firestore by setting `DATABASE_TYPE=firestore` in the `.env` file.
 
 #### Set up a SQL database:
-1. Add `DB_URI=<your_database_uri>` to the `.env` file. By default this is set to `sqlite:///dominion.db`.
+1. Add `DATABASE_URL=<your_database_url>` to the `.env` file. By default this is set to `sqlite:///dominion.db`.
 
-2. Set up the project to use your SQL database by setting `DB_TYPE=sqlalchemy` in the `.env` file.
+2. Set up the project to use your SQL database by setting `DATABASE_TYPE=sqlalchemy` in the `.env` file.
 
 ### Run the development server:
 Make sure you have `poetry` installed on your machine. Instructions can be found at [https://python-poetry.org/docs/master](https://python-poetry.org/docs/master).

@@ -38,6 +38,17 @@ async def sqlalchemy_search_cards(
     debt: Optional[int] = None,
     in_supply: Optional[bool] = None,
 ) -> list[CardAsDict]:
+    if (
+        not name
+        and not expansion
+        and not card_type
+        and not coins
+        and not potions
+        and not debt
+        and not in_supply
+    ):
+        return []
+
     query = db.query(models.Card)
     if name:
         query = query.filter(
@@ -59,5 +70,5 @@ async def sqlalchemy_search_cards(
         query = query.filter(models.Card.debt == debt).all()
     if in_supply:
         query = query.filter(models.Card.in_supply == in_supply).all()
-    cards = query
-    return cards
+
+    return query

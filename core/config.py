@@ -25,8 +25,8 @@ class Settings(BaseSettings):
     FIRESTORE_CLIENT_EMAIL: str
     FIRESTORE_TOKEN_URI: str
     CARD_LIST_URL: HttpUrl = "http://wiki.dominionstrategy.com/index.php/List_of_cards"
-    DB_TYPE: DBType
-    DB_URI: str = f"sqlite:///{os.path.join(ROOT_DIR, 'dominion.db')}"
+    DATABASE_TYPE: DBType
+    DATABASE_URL: str = f"sqlite:///{os.path.join(ROOT_DIR, 'dominion.db')}"
 
     class Config:
         env_file = ".env"

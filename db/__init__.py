@@ -2,7 +2,7 @@ from core.config import DBType, get_settings
 
 settings = get_settings()
 
-if settings.DB_TYPE == DBType.FIRESTORE:
+if settings.DATABASE_TYPE == DBType.FIRESTORE:
     from .firestore.init_db import get_firestore_db as get_db
     from .firestore.db_utils import (
         firestore_get_cards as get_all_cards,
@@ -12,7 +12,7 @@ if settings.DB_TYPE == DBType.FIRESTORE:
     )
     from .firestore.seed_db import seed_firestore as seed_db
 
-elif settings.DB_TYPE == DBType.SQLALCHEMY:
+elif settings.DATABASE_TYPE == DBType.SQLALCHEMY:
     from .sql.init_db import get_sqlalchemy_db as get_db
     from .sql.db_utils import (
         sqlalchemy_get_cards as get_all_cards,
