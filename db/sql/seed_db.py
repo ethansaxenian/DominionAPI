@@ -10,7 +10,7 @@ async def seed_sqlalchemy(data: list[CardAsDict], settings: Settings):
     Base.metadata.create_all(bind=engine)
 
     for card in data:
-        print(card["name"])
+        print(f"Seeding {card['name']}..")
         db_card = models.Card(
             **card,
             name_case_insensitive=case_insensitive(card["name"]),
