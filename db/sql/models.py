@@ -17,6 +17,7 @@ class Card(Base):
     potions = Column(Integer)
     debt = Column(Integer)
     text = Column(String, nullable=False)
-    img = Column(String, nullable=False)
+    img_path = Column(String, nullable=False)
+    img_b64 = Column(String, nullable=False)
     link = Column(String, nullable=False)
     in_supply = Column(Boolean, nullable=False)
