@@ -1,20 +1,17 @@
-from typing import Optional, Union
+from typing import Optional
 
 from fastapi import APIRouter, Depends, Query
-from google.cloud.firestore_v1 import AsyncClient
-from sqlalchemy.orm import Session
 
+from app.api.common import CommonParams, common_parameters
 from app.schemas import Card
-from core.config import Settings, get_settings
-from db import get_db, search_cards_with_query
+from db import search_cards_with_query
 
 router = APIRouter()
 
 
 @router.get("/", response_model=list[Card])
 async def search_cards(
-    settings: Settings = Depends(get_settings),
-    db: Union[Session, AsyncClient] = Depends(get_db),
+    commons: CommonParams = Depends(common_parameters),
     name: Optional[str] = Query(
         default=None,
         description="A card name (case-insensitive). Any spaces and special characters are ignored",
@@ -43,6 +40,10 @@ async def search_cards(
         description="Whether the card is in the supply.",
     ),
 ):
-    return await search_cards_with_query(
-        db, settings, name, expansion, card_type, coins, potions, debt, in_supply
+    cards = await search_cards_with_query(
+        commons.db, commons.settings, name, expansion, card_type, coins, potions, debt, in_supply
     )
+    if not commons.include_b64:
+        for card in cards:
+            card.img_b64 = None
+    return cards

@@ -15,7 +15,7 @@ async def seed_sqlalchemy(data: list[CardAsDict], settings: Settings):
             **card,
             name_case_insensitive=case_insensitive(card["name"]),
             expansion_case_insensitive=case_insensitive(card["expansion"]),
-            types_case_insensitive=[case_insensitive(t) for t in card["types"]]
+            types_case_insensitive=[case_insensitive(t) for t in card["types"]],
         )
         sqlalchemy_db.add(db_card)
         sqlalchemy_db.commit()
