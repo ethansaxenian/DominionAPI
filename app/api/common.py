@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Optional, Union
+from typing import Optional
 
 from fastapi import Depends, Query
 from sqlalchemy.orm import Session
