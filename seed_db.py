@@ -1,4 +1,3 @@
-import asyncio
 import json
 
 from core.config import get_settings
@@ -9,4 +8,4 @@ if __name__ == "__main__":
 
     with open(settings.DATA_PATH) as file:
         data = json.load(file)
-        asyncio.run(seed_db(data))
+        seed_db(data)
