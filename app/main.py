@@ -2,6 +2,7 @@ import markdown
 from bs4 import BeautifulSoup
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
+from fastapi.middleware.cors import CORSMiddleware
 
 from app.api import api_router
 from core.config import get_settings
@@ -16,6 +17,8 @@ app = FastAPI(
 )
 
 app.include_router(api_router, prefix=settings.API_PREFIX)
+
+app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"])
 
 
 @app.get("/", response_class=HTMLResponse, include_in_schema=False)
