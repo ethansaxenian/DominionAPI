@@ -25,24 +25,14 @@ def get_random_card(db: Session) -> Optional[CardAsDict]:
 def search_cards_with_query(
     db: Session,
     is_postgress: bool,
-    name: Optional[str] = None,
-    expansion: Optional[str] = None,
-    card_type: Optional[str] = None,
-    coins: Optional[int] = None,
-    potions: Optional[int] = None,
-    debt: Optional[int] = None,
-    in_supply: Optional[bool] = None,
+    name: Optional[str],
+    expansion: Optional[str],
+    card_types: list[str],
+    coins: Optional[int],
+    potions: Optional[int],
+    debt: Optional[int],
+    in_supply: Optional[bool],
 ) -> list[CardAsDict]:
-    if (
-        name is None
-        and expansion is None
-        and card_type is None
-        and coins is None
-        and potions is None
-        and debt is None
-        and in_supply is None
-    ):
-        return []
 
     cards = db.query(models.Card)
 
@@ -54,7 +44,7 @@ def search_cards_with_query(
         cards = cards.filter(
             models.Card.expansion_case_insensitive == case_insensitive(expansion)
         )
-    if card_type is not None:
+    for card_type in card_types:
         card_type_filter = (
             models.Card.types_case_insensitive.any(case_insensitive(card_type))
             if is_postgress

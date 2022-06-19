@@ -20,8 +20,8 @@ def search_cards(
         default=None,
         description="An expansion (case-insensitive). Any spaces and special characters are ignored",
     ),
-    card_type: Optional[str] = Query(
-        default=None,
+    card_types: Optional[list[str]] = Query(
+        default=[],
         alias="type",
         description="A card type (case-insensitive). Any spaces and special characters are ignored",
     ),
@@ -45,7 +45,7 @@ def search_cards(
         commons.settings.using_postgres(),
         name,
         expansion,
-        card_type,
+        card_types,
         coins,
         potions,
         debt,
