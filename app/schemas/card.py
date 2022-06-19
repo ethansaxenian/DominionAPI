@@ -1,5 +1,5 @@
 from typing import Optional
-from pydantic import BaseModel, HttpUrl, constr
+from pydantic import BaseModel, HttpUrl
 from .enums import Expansion, CardType
 
 
@@ -12,7 +12,7 @@ class BaseCard(BaseModel):
     debt: Optional[int]
     text: str
     img_path: HttpUrl
-    img_b64: Optional[constr(max_length=100000)]
+    img_b64: Optional[str]
     link: HttpUrl
     in_supply: bool
 
