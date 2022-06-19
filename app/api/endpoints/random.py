@@ -9,7 +9,7 @@ router = APIRouter()
 
 @router.get("/", response_model=Card)
 async def random_card(commons: CommonParams = Depends(common_parameters)):
-    card = await get_random_card(commons.db, commons.settings)
+    card = await get_random_card(commons.db)
 
     if card:
         if not commons.include_b64:

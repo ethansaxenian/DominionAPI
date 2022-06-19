@@ -3,33 +3,28 @@ from typing import Optional
 from sqlalchemy import func
 from sqlalchemy.orm import Session
 
-from core.config import Settings
 from core.utils import CardAsDict, case_insensitive
-from db.sql import models
+from db import models
 
 
-async def sqlalchemy_get_cards(db: Session, settings: Settings) -> list[CardAsDict]:
+async def get_all_cards(db: Session) -> list[CardAsDict]:
     cards = db.query(models.Card).all()
     return cards
 
 
-async def sqlalchemy_get_card(
-    db: Session, settings: Settings, id: str
-) -> Optional[CardAsDict]:
+async def get_card_by_id(db: Session, id: str) -> Optional[CardAsDict]:
     card = db.query(models.Card).filter(models.Card.id == id).first()
     return card
 
 
-async def seqlalchemy_get_random_card(
-    db: Session, settings: Settings
-) -> Optional[CardAsDict]:
+async def get_random_card(db: Session) -> Optional[CardAsDict]:
     card = db.query(models.Card).order_by(func.random()).first()
     return card
 
 
-async def sqlalchemy_search_cards(
+async def search_cards_with_query(
     db: Session,
-    settings: Settings,
+    is_postgress: bool,
     name: Optional[str] = None,
     expansion: Optional[str] = None,
     card_type: Optional[str] = None,
@@ -39,41 +34,42 @@ async def sqlalchemy_search_cards(
     in_supply: Optional[bool] = None,
 ) -> list[CardAsDict]:
     if (
-        not name
-        and not expansion
-        and not card_type
-        and not coins
-        and not potions
-        and not debt
-        and not in_supply
+        name is None
+        and expansion is None
+        and card_type is None
+        and coins is None
+        and potions is None
+        and debt is None
+        and in_supply is None
     ):
         return []
 
     cards = db.query(models.Card)
-    if name:
+
+    if name is not None:
         cards = cards.filter(
             models.Card.name_case_insensitive == case_insensitive(name)
-        ).all()
-    if expansion:
+        )
+    if expansion is not None:
         cards = cards.filter(
             models.Card.expansion_case_insensitive == case_insensitive(expansion)
-        ).all()
-    if card_type:
+        )
+    if card_type is not None:
         card_type_filter = (
             models.Card.types_case_insensitive.any(case_insensitive(card_type))
-            if settings.using_postgres()
+            if is_postgress
             else models.Card.types_case_insensitive.contains(
                 case_insensitive(card_type)
             )
         )
-        cards = cards.filter(card_type_filter).all()
-    if coins:
-        cards = cards.filter(models.Card.coins == coins).all()
-    if potions:
-        cards = cards.filter(models.Card.potions == potions).all()
-    if debt:
-        cards = cards.filter(models.Card.debt == debt).all()
-    if in_supply:
-        cards = cards.filter(models.Card.in_supply == in_supply).all()
+        cards = cards.filter(card_type_filter)
+    if coins is not None:
+        cards = cards.filter(models.Card.coins == coins)
+    if potions is not None:
+        cards = cards.filter(models.Card.potions == potions)
+    if debt is not None:
+        cards = cards.filter(models.Card.debt == debt)
+    if in_supply is not None:
+        cards = cards.filter(models.Card.in_supply == in_supply)
 
-    return cards
+    return cards.all()

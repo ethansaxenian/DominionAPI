@@ -1,10 +1,10 @@
-from core.config import Settings
 from core.utils import CardAsDict, case_insensitive
-from db.sql import Base, engine, get_sqlalchemy_db, models
+from db import Base, engine, get_db
+from db import models
 
 
-async def seed_sqlalchemy(data: list[CardAsDict], settings: Settings):
-    sqlalchemy_db = next(get_sqlalchemy_db())
+async def seed_db(data: list[CardAsDict]):
+    sqlalchemy_db = next(get_db())
 
     Base.metadata.drop_all(bind=engine)
     Base.metadata.create_all(bind=engine)
