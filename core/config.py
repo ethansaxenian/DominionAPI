@@ -25,12 +25,15 @@ class Settings(BaseSettings):
     FIRESTORE_CLIENT_EMAIL: str
     FIRESTORE_TOKEN_URI: str
     CARD_LIST_URL: HttpUrl = "http://wiki.dominionstrategy.com/index.php/List_of_cards"
-    DATABASE_TYPE: DBType
+    DATABASE_TYPE: DBType = DBType.SQLALCHEMY
     DATABASE_URL: str = f"sqlite:///{os.path.join(ROOT_DIR, 'dominion.db')}"
 
     class Config:
         env_file = ".env"
         case_sensitive = True
+
+    def using_postgres(self):
+        return self.DATABASE_URL.startswith("postgres")
 
 
 @cache

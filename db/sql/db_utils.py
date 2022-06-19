@@ -1,7 +1,6 @@
 from typing import Optional
 
 from sqlalchemy import func
-from sqlalchemy.dialects.postgresql import Any
 from sqlalchemy.orm import Session
 
 from core.config import Settings
@@ -60,9 +59,14 @@ async def sqlalchemy_search_cards(
             models.Card.expansion_case_insensitive == case_insensitive(expansion)
         ).all()
     if card_type:
-        cards = cards.filter(
-            models.Card.types_case_insensitive.contains([case_insensitive(card_type)])
-        ).all()
+        card_type_filter = (
+            models.Card.types_case_insensitive.any(case_insensitive(card_type))
+            if settings.using_postgres()
+            else models.Card.types_case_insensitive.contains(
+                case_insensitive(card_type)
+            )
+        )
+        cards = cards.filter(card_type_filter).all()
     if coins:
         cards = cards.filter(models.Card.coins == coins).all()
     if potions:

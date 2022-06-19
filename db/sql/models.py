@@ -1,6 +1,10 @@
 from sqlalchemy import Boolean, Column, Integer, JSON, String
+from sqlalchemy.dialects.postgresql import ARRAY
 
+from core.config import get_settings
 from .init_db import Base
+
+settings = get_settings()
 
 
 class Card(Base):
@@ -11,8 +15,10 @@ class Card(Base):
     name_case_insensitive = Column(String, nullable=False)
     expansion = Column(String, nullable=False)
     expansion_case_insensitive = Column(String, nullable=False)
-    types = Column(JSON, nullable=False)
-    types_case_insensitive = Column(JSON, nullable=False)
+    types = Column(ARRAY(String) if settings.using_postgres() else JSON, nullable=False)
+    types_case_insensitive = Column(
+        ARRAY(String) if settings.using_postgres() else JSON, nullable=False
+    )
     coins = Column(Integer)
     potions = Column(Integer)
     debt = Column(Integer)

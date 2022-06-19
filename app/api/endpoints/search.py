@@ -41,7 +41,15 @@ async def search_cards(
     ),
 ):
     cards = await search_cards_with_query(
-        commons.db, commons.settings, name, expansion, card_type, coins, potions, debt, in_supply
+        commons.db,
+        commons.settings,
+        name,
+        expansion,
+        card_type,
+        coins,
+        potions,
+        debt,
+        in_supply,
     )
     if not commons.include_b64:
         for card in cards:
