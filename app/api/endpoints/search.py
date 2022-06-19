@@ -42,7 +42,7 @@ async def search_cards(
 ):
     cards = await search_cards_with_query(
         commons.db,
-        commons.settings,
+        commons.settings.using_postgres(),
         name,
         expansion,
         card_type,

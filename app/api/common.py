@@ -1,8 +1,7 @@
 from dataclasses import dataclass
-from typing import Optional, Union
+from typing import Optional
 
 from fastapi import Depends, Query
-from google.cloud.firestore_v1 import AsyncClient
 from sqlalchemy.orm import Session
 
 from core.config import Settings, get_settings
@@ -13,7 +12,7 @@ from db import get_db
 class CommonParams:
     include_b64: Optional[bool]
     settings: Settings
-    db: Union[Session, AsyncClient]
+    db: Session
 
 
 async def common_parameters(
@@ -23,6 +22,6 @@ async def common_parameters(
         alias="include-b64",
     ),
     global_settings: Settings = Depends(get_settings),
-    db: Union[Session, AsyncClient] = Depends(get_db),
+    db: Session = Depends(get_db),
 ) -> CommonParams:
     return CommonParams(include_b64=include_b64, settings=global_settings, db=db)

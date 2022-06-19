@@ -23,7 +23,7 @@ Base = declarative_base()
 Base.metadata.create_all(bind=engine)
 
 
-def get_sqlalchemy_db():
+def get_db():
     db = SessionLocal()
     try:
         yield db

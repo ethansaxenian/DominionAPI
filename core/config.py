@@ -1,12 +1,6 @@
-from enum import Enum
 from functools import cache
 import os
 from pydantic import BaseSettings, HttpUrl
-
-
-class DBType(Enum):
-    FIRESTORE = "firestore"
-    SQLALCHEMY = "sqlalchemy"
 
 
 class Settings(BaseSettings):
@@ -18,14 +12,7 @@ class Settings(BaseSettings):
     AUTHOR_NAME: str = "Ethan Saxenian"
     AUTHOR_EMAIL: str = "ethansaxenian@gmail.com"
     LICENSE: str = "MIT"
-    FIRESTORE_COLLECTION_NAME: str = "cards"
-    FIRESTORE_PROJECT_ID: str
-    FIRESTORE_PRIVATE_KEY_ID: str
-    FIRESTORE_PRIVATE_KEY: str
-    FIRESTORE_CLIENT_EMAIL: str
-    FIRESTORE_TOKEN_URI: str
     CARD_LIST_URL: HttpUrl = "http://wiki.dominionstrategy.com/index.php/List_of_cards"
-    DATABASE_TYPE: DBType = DBType.SQLALCHEMY
     DATABASE_URL: str = f"sqlite:///{os.path.join(ROOT_DIR, 'dominion.db')}"
 
     class Config:

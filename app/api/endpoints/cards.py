@@ -9,7 +9,7 @@ router = APIRouter()
 
 @router.get("/", response_model=list[Card])
 async def get_cards(commons: CommonParams = Depends(common_parameters)):
-    cards = await get_all_cards(commons.db, commons.settings)
+    cards = await get_all_cards(commons.db)
     if not commons.include_b64:
         for card in cards:
             card.img_b64 = None
@@ -18,7 +18,7 @@ async def get_cards(commons: CommonParams = Depends(common_parameters)):
 
 @router.get("/{id}", response_model=Card)
 async def get_card(id: int, commons: CommonParams = Depends(common_parameters)):
-    card = await get_card_by_id(commons.db, commons.settings, str(id))
+    card = await get_card_by_id(commons.db, str(id))
 
     if card:
         if not commons.include_b64:
