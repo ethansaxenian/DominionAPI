@@ -7,22 +7,22 @@ from core.utils import CardAsDict, case_insensitive
 from db import models
 
 
-async def get_all_cards(db: Session) -> list[CardAsDict]:
+def get_all_cards(db: Session) -> list[CardAsDict]:
     cards = db.query(models.Card).all()
     return cards
 
 
-async def get_card_by_id(db: Session, id: str) -> Optional[CardAsDict]:
+def get_card_by_id(db: Session, id: str) -> Optional[CardAsDict]:
     card = db.query(models.Card).filter(models.Card.id == id).first()
     return card
 
 
-async def get_random_card(db: Session) -> Optional[CardAsDict]:
+def get_random_card(db: Session) -> Optional[CardAsDict]:
     card = db.query(models.Card).order_by(func.random()).first()
     return card
 
 
-async def search_cards_with_query(
+def search_cards_with_query(
     db: Session,
     is_postgress: bool,
     name: Optional[str] = None,

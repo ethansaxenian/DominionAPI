@@ -15,7 +15,7 @@ class CommonParams:
     db: Session
 
 
-async def common_parameters(
+def common_parameters(
     include_b64: Optional[bool] = Query(
         default=False,
         description="Whether to include base64-encoded images in the response. Defaults to false.",

@@ -10,7 +10,7 @@ router = APIRouter()
 
 
 @router.get("/", response_model=list[Card])
-async def search_cards(
+def search_cards(
     commons: CommonParams = Depends(common_parameters),
     name: Optional[str] = Query(
         default=None,
@@ -40,7 +40,7 @@ async def search_cards(
         description="Whether the card is in the supply.",
     ),
 ):
-    cards = await search_cards_with_query(
+    cards = search_cards_with_query(
         commons.db,
         commons.settings.using_postgres(),
         name,
