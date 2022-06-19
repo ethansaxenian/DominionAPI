@@ -2,7 +2,7 @@
 
 An API for the game Dominion
 
-Powered by FastAPI
+Powered by [FastAPI](https://fastapi.tiangolo.com/)
 
 ## Installation and setup instructions:
 
