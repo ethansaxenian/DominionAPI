@@ -20,7 +20,7 @@ SQLAlchemy = "^1.4.39"
 psycopg2-binary = "^2.9.3"
 
 [tool.poetry.dev-dependencies]
-black = "^22.3.0"
+black = "^22.6.0"
 flake8 = "^4.0.1"
 
 [build-system]
