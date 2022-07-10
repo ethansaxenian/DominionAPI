@@ -4,6 +4,7 @@ from fastapi import APIRouter, Depends, Query
 
 from app.api.common import CommonParams, common_parameters
 from app.schemas import Card
+from core.utils import decode_str_list
 from db import search_cards_with_query
 
 router = APIRouter()
@@ -42,7 +43,6 @@ def search_cards(
 ):
     cards = search_cards_with_query(
         commons.db,
-        commons.settings.using_postgres(),
         name,
         expansion,
         card_types,
@@ -53,5 +53,6 @@ def search_cards(
     )
     if not commons.include_b64:
         for card in cards:
+            card.types = decode_str_list(card.types)
             card.img_b64 = None
     return cards

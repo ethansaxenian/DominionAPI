@@ -1,6 +1,4 @@
-from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+from sqlmodel import SQLModel, Session, create_engine
 
 from core.config import get_settings
 
@@ -16,16 +14,16 @@ engine = create_engine(
     db_url,
     connect_args={"check_same_thread": False} if db_url.startswith("sqlite") else {},
 )
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-
-Base = declarative_base()
-
-Base.metadata.create_all(bind=engine)
 
 
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
+def create_db_and_tables():
+    SQLModel.metadata.create_all(engine)
+
+
+def drop_db_and_tables():
+    SQLModel.metadata.drop_all(engine)
+
+
+def get_session():
+    with Session(engine) as session:
+        yield session

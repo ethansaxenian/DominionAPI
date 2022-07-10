@@ -2,10 +2,10 @@ from dataclasses import dataclass
 from typing import Optional
 
 from fastapi import Depends, Query
-from sqlalchemy.orm import Session
+from sqlmodel import Session
 
 from core.config import Settings, get_settings
-from db import get_db
+from db import get_session
 
 
 @dataclass
@@ -22,6 +22,6 @@ def common_parameters(
         alias="include-b64",
     ),
     global_settings: Settings = Depends(get_settings),
-    db: Session = Depends(get_db),
+    db: Session = Depends(get_session),
 ) -> CommonParams:
     return CommonParams(include_b64=include_b64, settings=global_settings, db=db)

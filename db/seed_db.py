@@ -1,22 +1,29 @@
-from core.utils import CardAsDict, case_insensitive
-from db import Base, engine, get_db
-from db import models
+from typing import Any
+
+from sqlmodel import Session
+
+from core.utils import case_insensitive, encode_str_list
+from db import Card, create_db_and_tables, drop_db_and_tables, engine
 
 
-def seed_db(data: list[CardAsDict]):
-    sqlalchemy_db = next(get_db())
+def seed_db(data: list[dict[str, Any]]):
 
-    Base.metadata.drop_all(bind=engine)
-    Base.metadata.create_all(bind=engine)
+    drop_db_and_tables()
+    create_db_and_tables()
 
-    for card in data:
-        print(f"Seeding {card['name']}..")
-        db_card = models.Card(
-            **card,
-            name_case_insensitive=case_insensitive(card["name"]),
-            expansion_case_insensitive=case_insensitive(card["expansion"]),
-            types_case_insensitive=[case_insensitive(t) for t in card["types"]],
-        )
-        sqlalchemy_db.add(db_card)
-        sqlalchemy_db.commit()
-        sqlalchemy_db.refresh(db_card)
+    with Session(engine) as session:
+
+        for card in data:
+            print(f"Seeding {card['name']}..")
+            db_card = Card(
+                **{k: v for k, v in card.items() if k != "types"},
+                types=encode_str_list(card["types"]),
+                name_case_insensitive=case_insensitive(card["name"]),
+                expansion_case_insensitive=case_insensitive(card["expansion"]),
+                types_case_insensitive=encode_str_list(
+                    [case_insensitive(t) for t in card["types"]]
+                ),
+            )
+            session.add(db_card)
+            session.commit()
+            session.refresh(db_card)

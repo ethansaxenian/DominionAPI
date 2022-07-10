@@ -1,29 +1,21 @@
-from sqlalchemy import Boolean, Column, Integer, JSON, String
-from sqlalchemy.dialects.postgresql import ARRAY
+from typing import Optional
 
-from core.config import get_settings
-from .init_db import Base
-
-settings = get_settings()
+from sqlmodel import Field, SQLModel
 
 
-class Card(Base):
-    __tablename__ = "cards"
-
-    id = Column(Integer, primary_key=True)
-    name = Column(String, nullable=False, unique=True)
-    name_case_insensitive = Column(String, nullable=False)
-    expansion = Column(String, nullable=False)
-    expansion_case_insensitive = Column(String, nullable=False)
-    types = Column(ARRAY(String) if settings.using_postgres() else JSON, nullable=False)
-    types_case_insensitive = Column(
-        ARRAY(String) if settings.using_postgres() else JSON, nullable=False
-    )
-    coins = Column(Integer)
-    potions = Column(Integer)
-    debt = Column(Integer)
-    text = Column(String, nullable=False)
-    img_path = Column(String, nullable=False)
-    img_b64 = Column(String, nullable=False)
-    link = Column(String, nullable=False)
-    in_supply = Column(Boolean, nullable=False)
+class Card(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    name: str
+    name_case_insensitive: str
+    expansion: str
+    expansion_case_insensitive: str
+    types: str
+    types_case_insensitive: str
+    coins: Optional[int]
+    potions: Optional[int]
+    debt: Optional[int]
+    text: str
+    img_path: str
+    img_b64: str
+    link: str
+    in_supply: bool

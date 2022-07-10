@@ -6,6 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.api import api_router
 from core.config import get_settings
+from db import create_db_and_tables
 
 settings = get_settings()
 
@@ -19,6 +20,11 @@ app = FastAPI(
 app.include_router(api_router, prefix=settings.API_PREFIX)
 
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"])
+
+
+@app.on_event("startup")
+def on_startup():
+    create_db_and_tables()
 
 
 @app.get("/", response_class=HTMLResponse, include_in_schema=False)
