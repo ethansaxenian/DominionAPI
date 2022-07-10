@@ -3,7 +3,7 @@ from typing import Optional
 from sqlalchemy import func
 from sqlmodel import Session, select
 
-from core.utils import case_insensitive
+from core.utils import case_insensitive, decode_str_list
 from db import Card, models
 
 
@@ -42,7 +42,8 @@ def search_cards_with_query(
             Card.expansion_case_insensitive == case_insensitive(expansion)
         )
     for card_type in card_types:
-        cards = cards.where(case_insensitive(card_type) in Card.types_case_insensitive)
+        # TODO: fix this
+        cards = cards.where(case_insensitive(card_type) in decode_str_list(Card.types_case_insensitive))
     if coins is not None:
         cards = cards.where(Card.coins == coins)
     if potions is not None:
