@@ -1,7 +1,8 @@
 VENV = .venv
 PYTHON = $(VENV)/bin/python
 
-.DEFAULT_GOAL = help
+.PHONY: all
+all: install seed
 
 help:
 	@echo "Usage: make [help|install|run|lint|format|scrape|seed|clean]"
@@ -31,7 +32,7 @@ $(VENV)/bin/activate: pyproject.toml
 	@echo "To activate the virtual environment, run 'source $(VENV)/bin/activate'"
 
 .PHONY: run
-run: $(VENV)/bin/activate
+run: seed
 	$(VENV)/bin/uvicorn app.main:app --reload
 
 .PHONY: lint
@@ -43,14 +44,12 @@ format: $(VENV)/bin/activate
 	$(VENV)/bin/black .
 
 .PHONY: scrape
-scrape: data/dominion_cards.json
-
-data/dominion_cards.json: $(VENV)/bin/activate
+scrape: $(VENV)/bin/activate
 	mkdir -p data
 	$(PYTHON) scrape_data.py
 
 .PHONY: seed
-seed: $(VENV)/bin/activate data/dominion_cards.json
+seed: $(VENV)/bin/activate
 	$(PYTHON) seed_db.py
 
 .PHONY: clean
