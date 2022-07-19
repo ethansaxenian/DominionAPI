@@ -15,8 +15,8 @@ DominionAPI currently supports the various [dialects supported by SQLAlchemy](ht
 ### Run the development server:
 Make sure you have `poetry` installed on your machine. Instructions can be found at [https://python-poetry.org/docs/master](https://python-poetry.org/docs/master).
 
-Running `make run` will install the project dependencies and start the development server.
+Running `make run` will install the project dependencies, seed the database, and start the development server. (To set up the project without running the dev server, simply run `make`.)
 
-Run `make seed` to seed the database.
+To get new card data, run `make scrape`. (All card data is obtained from http://wiki.dominionstrategy.com/index.php/List_of_cards.) Then, run `make seed` to load the data into the database.
 
 Run `make help` to view the list of available commands.
