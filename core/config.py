@@ -14,6 +14,8 @@ class Settings(BaseSettings):
     LICENSE: str = "MIT"
     CARD_LIST_URL: HttpUrl = "http://wiki.dominionstrategy.com/index.php/List_of_cards"
     DATABASE_URL: str = f"sqlite:///{os.path.join(ROOT_DIR, 'dominion.db')}"
+    API_KEY: str
+    API_KEY_NAME: str = "api_key"
 
     class Config:
         env_file = ".env"
