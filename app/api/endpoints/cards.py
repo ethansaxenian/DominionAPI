@@ -1,8 +1,12 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Security, status
+from sqlalchemy.orm import Session
 
 from app.api.common import CommonParams, common_parameters
+from app.auth import get_api_key
 from app.schemas import Card
-from db import get_all_cards, get_card_by_id
+from app.schemas.card import BaseCard
+from core.utils import autofill_card_attrs
+from db import post_card, delete_card, get_all_cards, get_card_by_id, get_db, put_card
 
 router = APIRouter()
 
@@ -25,4 +29,23 @@ def get_card(id: int, commons: CommonParams = Depends(common_parameters)):
             card.img_b64 = None
         return card
     else:
-        raise HTTPException(status_code=404, detail=f"Card with id {id} not found")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail=f"Card with id {id} not found"
+        )
+
+
+@router.post("/", response_model=int, dependencies=[Security(get_api_key)])
+def add_card(card: BaseCard, db: Session = Depends(get_db)):
+    new_card = autofill_card_attrs(card)
+    return post_card(db, new_card)
+
+
+@router.delete("/", response_model=Card, dependencies=[Security(get_api_key)])
+def remove_card(id: int, db: Session = Depends(get_db)):
+    return delete_card(db, str(id))
+
+
+@router.put("/{id}", response_model=Card, dependencies=[Security(get_api_key)])
+def update_card(id: int, card: BaseCard, db: Session = Depends(get_db)):
+    new_card = autofill_card_attrs(card)
+    return put_card(db, str(id), new_card)

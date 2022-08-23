@@ -93,7 +93,7 @@ def get_card_data(soup):
         text = get_text(columns)
         img = get_image(columns)
         link = get_link(columns)
-        print(name)
+        print(f"Scraping {name}...")
         cards.append(
             {
                 "name": name,

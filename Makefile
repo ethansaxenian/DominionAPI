@@ -32,7 +32,7 @@ $(VENV)/bin/activate: pyproject.toml
 	@echo "To activate the virtual environment, run 'source $(VENV)/bin/activate'"
 
 .PHONY: run
-run: seed
+run: $(VENV)/bin/activate
 	$(VENV)/bin/uvicorn app.main:app --reload
 
 .PHONY: lint

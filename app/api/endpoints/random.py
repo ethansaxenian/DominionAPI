@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, status
 
 from app.api.common import CommonParams, common_parameters
 from app.schemas import Card
@@ -16,4 +16,6 @@ def random_card(commons: CommonParams = Depends(common_parameters)):
             card.img_b64 = None
         return card
     else:
-        raise HTTPException(status_code=404, detail="No cards found")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="No cards found"
+        )

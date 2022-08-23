@@ -17,14 +17,14 @@ class BaseCard(BaseModel):
     in_supply: bool
 
 
+class CardCreate(BaseCard):
+    name_case_insensitive: str
+    expansion_case_insensitive: str
+    types_case_insensitive: list[str]
+
+
 class Card(BaseCard):
     id: int
 
     class Config:
         orm_mode = True
-
-
-class CardInDB(Card):
-    name_case_insensitive: str
-    expansion_case_insensitive: str
-    types_case_insensitive: list[str]
