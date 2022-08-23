@@ -66,7 +66,7 @@ def search_cards_with_query(
     return cards.all()
 
 
-def create_card(db: Session, card: schemas.CardCreate) -> int:
+def post_card(db: Session, card: schemas.CardCreate) -> int:
     new_card = models.Card(**card.dict())
     db.add(new_card)
     db.commit()
@@ -79,3 +79,12 @@ def delete_card(db: Session, id: str) -> schemas.CardCreate:
     db.delete(card_to_remove)
     db.commit()
     return card_to_remove
+
+
+def put_card(db: Session, id: str, card: schemas.CardCreate):
+    card_to_replace = db.query(models.Card).filter(models.Card.id == id).first()
+    for k, v in card.dict().items():
+        setattr(card_to_replace, k, v)
+    db.commit()
+    db.refresh(card_to_replace)
+    return card_to_replace
