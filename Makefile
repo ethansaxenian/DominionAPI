@@ -33,7 +33,7 @@ $(VENV)/bin/activate: pyproject.toml
 
 .PHONY: run
 run: $(VENV)/bin/activate
-	$(VENV)/bin/uvicorn app.main:app --reload
+	$(VENV)/bin/uvicorn main:app --reload
 
 .PHONY: lint
 lint: $(VENV)/bin/activate
