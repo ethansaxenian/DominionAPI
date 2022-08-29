@@ -20,6 +20,8 @@ help:
 	@echo "        Scrape dominion card data from the web."
 	@echo "    seed"
 	@echo "        Seed the database with dominion card data."
+	@echo "    deploy"
+	@echo "        Deploy the api to Render.com. RENDER_DEPLOY_KEY and RENDER_SERVICE_ID environment variables are required."
 	@echo "    clean"
 	@echo "        Remove the virtual environment, python caches, and card data."
 
@@ -51,6 +53,10 @@ scrape: $(VENV)/bin/activate
 .PHONY: seed
 seed: $(VENV)/bin/activate
 	$(PYTHON) seed_db.py
+
+.PHONY: deploy
+deploy: $(VENV)/bin/activate
+	$(PYTHON) deploy_to_render.py
 
 .PHONY: clean
 clean:
