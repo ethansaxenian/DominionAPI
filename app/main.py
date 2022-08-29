@@ -1,7 +1,5 @@
-import markdown
-from bs4 import BeautifulSoup
 from fastapi import FastAPI
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.api import api_router
@@ -22,11 +20,5 @@ app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"])
 
 
 @app.get("/", response_class=HTMLResponse, include_in_schema=False)
-def readme():
-    readme_file = open(f"{settings.ROOT_DIR}/README.md", "r")
-    markdown_str = markdown.markdown(readme_file.read(), extensions=["fenced_code"])
-    html = BeautifulSoup(markdown_str, "html.parser")
-    for tag in html.find_all("a"):
-        tag["rel"] = "noopener noreferrer"
-        tag["target"] = "_blank"
-    return html.prettify()
+def base():
+    return RedirectResponse(url="/docs")

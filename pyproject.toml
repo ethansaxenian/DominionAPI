@@ -12,12 +12,11 @@ homepage = "https://github.com/ethansaxenian/DominionAPI"
 python = "^3.9"
 fastapi = "^0.81.0"
 uvicorn = "^0.18.3"
-Markdown = "^3.4.1"
 beautifulsoup4 = "^4.11.1"
 requests = "^2.28.1"
-python-dotenv = "^0.20.0"
 SQLAlchemy = "^1.4.40"
 psycopg2-binary = "^2.9.3"
+python-dotenv = "^0.20.0"
 
 [tool.poetry.dev-dependencies]
 black = "^22.6.0"
