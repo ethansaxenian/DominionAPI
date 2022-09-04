@@ -13,7 +13,7 @@ DominionAPI currently supports the various [dialects supported by SQLAlchemy](ht
 
 
 ### Run the development server:
-Make sure you have `poetry` installed on your machine. Instructions can be found at [https://python-poetry.org/docs/master](https://python-poetry.org/docs/master).
+Make sure you have `poetry` installed on your machine. Instructions can be found at [https://python-poetry.org/docs/master](https://python-poetry.org/docs).
 
 Running `make run` will install the project dependencies, seed the database, and start the development server. (To set up the project without running the dev server, simply run `make`.)
 
