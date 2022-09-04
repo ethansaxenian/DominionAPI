@@ -5,7 +5,7 @@ from typing import Optional
 from pydantic import BaseSettings, HttpUrl
 
 description = """
-### An API for the game Dominion
+### An API for Dominion card data
 
 <a href="https://github.com/ethansaxenian/DominionAPI" target="_blank">
     <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub" width="40"/>
