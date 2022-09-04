@@ -3,7 +3,7 @@ from typing import Optional
 from fastapi import APIRouter, Depends, Query
 
 from app.api.common import CommonParams, common_parameters
-from app.schemas import Card
+from app.schemas import Card, CardType, Expansion
 from db import search_cards_with_query
 
 router = APIRouter()
@@ -16,11 +16,11 @@ def search_cards(
         default=None,
         description="A card name (case-insensitive). Any spaces and special characters are ignored",
     ),
-    expansion: Optional[str] = Query(
+    expansion: Optional[Expansion] = Query(
         default=None,
         description="An expansion (case-insensitive). Any spaces and special characters are ignored",
     ),
-    card_types: Optional[list[str]] = Query(
+    card_types: Optional[list[CardType]] = Query(
         default=[],
         alias="type",
         description="A card type (case-insensitive). Any spaces and special characters are ignored",

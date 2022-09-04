@@ -6,7 +6,7 @@ license = "MIT"
 authors = ["Ethan Saxenian <ethansaxenian@gmail.com>"]
 readme = "README.md"
 repository = "https://github.com/ethansaxenian/DominionAPI"
-homepage = "https://github.com/ethansaxenian/DominionAPI"
+homepage = "https://dominion-api.onrender.com/docs"
 
 [tool.poetry.dependencies]
 python = "^3.9"
