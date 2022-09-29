@@ -1,4 +1,6 @@
-from fastapi import APIRouter, Depends, HTTPException, Security, status
+from typing import Optional
+
+from fastapi import APIRouter, Depends, HTTPException, Query, Security, status
 from sqlalchemy.orm import Session
 
 from app.api.common import CommonParams, common_parameters
@@ -12,12 +14,26 @@ router = APIRouter()
 
 
 @router.get("/", response_model=list[Card])
-def get_cards(commons: CommonParams = Depends(common_parameters)):
+def get_cards(
+    commons: CommonParams = Depends(common_parameters),
+    page: Optional[int] = Query(
+        default=None,
+        description="The page number to return.",
+    ),
+    size: int = Query(
+        default=100,
+        description="The page size.",
+    ),
+):
     cards = get_all_cards(commons.db)
     if not commons.include_b64:
         for card in cards:
             card.img_b64 = None
-    return cards
+
+    if page is not None:
+        return cards[size * (page - 1) : size * page]
+    else:
+        return cards
 
 
 @router.get("/{id}", response_model=Card)

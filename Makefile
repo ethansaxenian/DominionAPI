@@ -34,7 +34,7 @@ install: pyproject.toml
 
 .PHONY: run
 run:
-	$(RUN) uvicorn app.main:app --reload
+	$(RUN) uvicorn main:app --reload
 
 .PHONY: lint
 lint:
@@ -55,7 +55,9 @@ seed:
 
 .PHONY: deploy
 deploy:
-	$(PYTHON) deploy_to_render.py
+	poetry export --without-hashes --without-urls --output=requirements.txt
+	deta deploy
+	rm requirements.txt
 
 .PHONY: clean
 clean:
