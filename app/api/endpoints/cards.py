@@ -16,12 +16,12 @@ router = APIRouter()
 @router.get("/", response_model=list[Card])
 def get_cards(
     commons: CommonParams = Depends(common_parameters),
-    page: Optional[int] = Query(
-        default=None,
+    page: int = Query(
+        default=1,
         description="The page number to return.",
     ),
     size: int = Query(
-        default=100,
+        default=200,
         description="The page size.",
     ),
 ):
@@ -30,10 +30,7 @@ def get_cards(
         for card in cards:
             card.img_b64 = None
 
-    if page is not None:
-        return cards[size * (page - 1) : size * page]
-    else:
-        return cards
+    return cards[size * (page - 1) : size * page]
 
 
 @router.get("/{id}", response_model=Card)
