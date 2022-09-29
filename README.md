@@ -9,7 +9,7 @@ Powered by [FastAPI](https://fastapi.tiangolo.com/)
 ### Set up the database:
 Add `DATABASE_URL=<your_database_url>` to the `.env` file. By default this is set to `sqlite:///dominion.db`.
 
-DominionAPI currently supports the various [dialects supported by SQLAlchemy](https://docs.sqlalchemy.org/en/14/dialects/). 
+DominionAPI currently supports sqlite and postgresql databases. 
 
 
 ### Run the development server:
@@ -20,3 +20,11 @@ Running `make run` will install the project dependencies, seed the database, and
 To get new card data, run `make scrape`. (All card data is obtained from http://wiki.dominionstrategy.com/index.php/List_of_cards.) Then, run `make seed` to load the data into the database.
 
 Run `make help` to view the list of available commands.
+
+
+### Deployment:
+Dominion API is deployed by [deta](https://www.deta.sh/). See the [docs](https://docs.deta.sh/docs/home) for details about deployment or you can quickly deploy your own instance of the API with the button below.
+
+Make sure to configure the `API_KEY` and `DATABASE_URL` environment variables.
+
+[![Deploy](https://button.deta.dev/1/svg)](https://go.deta.dev/deploy?repo=https://github.com/ethansaxenian/DominionAPI)
