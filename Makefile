@@ -1,5 +1,6 @@
 VENV = .venv
 PYTHON = $(VENV)/bin/python
+RUN = poetry run
 
 .PHONY: all
 all: install seed
@@ -27,36 +28,36 @@ help:
 
 
 .PHONY: install
-install: $(VENV)/bin/activate
-
-$(VENV)/bin/activate: pyproject.toml
+install: pyproject.toml
 	POETRY_VIRTUALENVS_IN_PROJECT=true poetry install
-	@echo "To activate the virtual environment, run 'source $(VENV)/bin/activate'"
+	@echo "To activate the virtual environment, run 'poetry shell'"
 
 .PHONY: run
-run: $(VENV)/bin/activate
-	$(VENV)/bin/uvicorn app.main:app --reload
+run:
+	$(RUN) uvicorn main:app --reload
 
 .PHONY: lint
-lint: $(VENV)/bin/activate
-	$(VENV)/bin/flake8 .
+lint:
+	$(RUN) flake8 .
 
 .PHONY: format
-format: $(VENV)/bin/activate
-	$(VENV)/bin/black .
+format:
+	$(RUN) black .
 
 .PHONY: scrape
-scrape: $(VENV)/bin/activate
+scrape:
 	mkdir -p data
 	$(PYTHON) scrape_data.py
 
 .PHONY: seed
-seed: $(VENV)/bin/activate
+seed:
 	$(PYTHON) seed_db.py
 
 .PHONY: deploy
-deploy: $(VENV)/bin/activate
-	$(PYTHON) deploy_to_render.py
+deploy:
+	poetry export --without-hashes --without-urls --output=requirements.txt
+	deta deploy
+	rm requirements.txt
 
 .PHONY: clean
 clean:

@@ -4,10 +4,18 @@ from typing import Optional
 
 from pydantic import BaseSettings, HttpUrl
 
+description = """
+### An API for Dominion card data
+
+<a href="https://github.com/ethansaxenian/DominionAPI" target="_blank">
+    <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub" width="40"/>
+</a>
+"""
+
 
 class Settings(BaseSettings):
     PROJECT_NAME: str = "Dominion API"
-    PROJECT_DESCRIPTION: str = "An API for the game Dominion"
+    PROJECT_DESCRIPTION: str = description
     API_PREFIX: str = "/api"
     ROOT_DIR: str = os.path.realpath(os.path.join(os.path.dirname(__file__), ".."))
     DATA_PATH: str = os.path.join(ROOT_DIR, "data/dominion_cards.json")
