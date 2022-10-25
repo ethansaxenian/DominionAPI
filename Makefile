@@ -2,11 +2,8 @@ VENV = .venv
 PYTHON = $(VENV)/bin/python
 RUN = poetry run
 
-.PHONY: all
-all: install seed
-
 help:
-	@echo "Usage: make [help|install|run|lint|format|scrape|seed|clean]"
+	@echo "Usage: make [help|install|run|lint|format|scrape|seed|deploy|clean]"
 	@echo "    help"
 	@echo "        Display this help message."
 	@echo "    install"
