@@ -3,7 +3,7 @@ from typing import Any
 
 import requests
 
-from app.schemas import BaseCard, CardCreate
+from api.schemas import BaseCard, CardCreate
 
 
 def case_insensitive(string: str):

@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 
-from app.api.common import CommonParams, common_parameters
-from app.schemas import Card
+from api.common import CommonParams, common_parameters
+from api.schemas import Card
 from db import get_random_card
 
 router = APIRouter()

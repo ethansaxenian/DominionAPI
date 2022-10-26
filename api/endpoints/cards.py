@@ -3,10 +3,10 @@ from typing import Optional
 from fastapi import APIRouter, Depends, HTTPException, Query, Security, status
 from sqlalchemy.orm import Session
 
-from app.api.common import CommonParams, common_parameters
-from app.auth import get_api_key
-from app.schemas import Card
-from app.schemas.card import BaseCard
+from api.common import CommonParams, common_parameters
+from api.auth import get_api_key
+from api.schemas import Card
+from api.schemas.card import BaseCard
 from core.utils import autofill_card_attrs
 from db import post_card, delete_card, get_all_cards, get_card_by_id, get_db, put_card
 

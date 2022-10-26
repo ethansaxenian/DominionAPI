@@ -2,8 +2,8 @@ from typing import Optional
 
 from fastapi import APIRouter, Depends, Query
 
-from app.api.common import CommonParams, common_parameters
-from app.schemas import Card, CardType, Expansion
+from api.common import CommonParams, common_parameters
+from api.schemas import Card, CardType, Expansion
 from db import search_cards_with_query
 
 router = APIRouter()
