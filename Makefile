@@ -2,11 +2,8 @@ VENV = .venv
 PYTHON = $(VENV)/bin/python
 RUN = poetry run
 
-.PHONY: all
-all: install seed
-
 help:
-	@echo "Usage: make [help|install|run|lint|format|scrape|seed|clean]"
+	@echo "Usage: make [help|install|run|lint|format|scrape|seed|deploy|clean]"
 	@echo "    help"
 	@echo "        Display this help message."
 	@echo "    install"
@@ -53,11 +50,13 @@ scrape:
 seed:
 	$(PYTHON) seed_db.py
 
+REQUIREMENTS_FILE = requirements.txt
+
 .PHONY: deploy
 deploy:
-	poetry export --without-hashes --without-urls --output=requirements.txt
+	poetry export --without-hashes --without-urls --output=REQUIREMENTS_FILE
 	deta deploy
-	rm requirements.txt
+	rm REQUIREMENTS_FILE
 
 .PHONY: clean
 clean:
