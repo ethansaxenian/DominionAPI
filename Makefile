@@ -50,11 +50,13 @@ scrape:
 seed:
 	$(PYTHON) seed_db.py
 
+REQUIREMENTS_FILE = requirements.txt
+
 .PHONY: deploy
 deploy:
-	poetry export --without-hashes --without-urls --output=requirements.txt
+	poetry export --without-hashes --without-urls --output=REQUIREMENTS_FILE
 	deta deploy
-	rm requirements.txt
+	rm REQUIREMENTS_FILE
 
 .PHONY: clean
 clean:
