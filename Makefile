@@ -54,9 +54,9 @@ REQUIREMENTS_FILE = requirements.txt
 
 .PHONY: deploy
 deploy:
-	poetry export --without-hashes --without-urls --output=REQUIREMENTS_FILE
+	poetry export --without-hashes --without-urls --output=$(REQUIREMENTS_FILE)
 	deta deploy
-	rm REQUIREMENTS_FILE
+	rm $(REQUIREMENTS_FILE)
 
 .PHONY: clean
 clean:
