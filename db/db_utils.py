@@ -3,7 +3,7 @@ from typing import Optional
 from sqlalchemy import func
 from sqlalchemy.orm import Session
 
-from app import schemas
+from api import schemas
 from core.utils import CardAsDict, case_insensitive
 from db import models
 

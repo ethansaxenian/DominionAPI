@@ -1,6 +1,7 @@
 from fastapi import APIRouter
 
-from app.api.endpoints import cards, random, search
+from api.endpoints import search
+from api.endpoints import cards, random
 
 api_router = APIRouter()
 api_router.include_router(cards.router, prefix="/cards")
