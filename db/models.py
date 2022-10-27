@@ -1,10 +1,8 @@
 from sqlalchemy import Boolean, Column, Integer, JSON, String
 from sqlalchemy.dialects.postgresql import ARRAY
 
-from core.config import get_settings
+from core.config import settings
 from .init_db import Base
-
-settings = get_settings()
 
 
 class Card(Base):

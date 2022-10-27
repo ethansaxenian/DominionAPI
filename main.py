@@ -3,9 +3,7 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.middleware.cors import CORSMiddleware
 
 from api.router import api_router
-from core.config import get_settings
-
-settings = get_settings()
+from core.config import settings
 
 app = FastAPI(
     title=settings.PROJECT_NAME,

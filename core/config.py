@@ -1,4 +1,3 @@
-from functools import cache
 import os
 from typing import Optional
 
@@ -35,6 +34,4 @@ class Settings(BaseSettings):
         return self.DATABASE_URL.startswith("postgres")
 
 
-@cache
-def get_settings():
-    return Settings()
+settings = Settings()

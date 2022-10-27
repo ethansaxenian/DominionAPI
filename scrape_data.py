@@ -5,7 +5,7 @@ import requests
 from bs4 import BeautifulSoup
 from tqdm import tqdm
 
-from core.config import get_settings
+from core.config import settings
 
 NON_SUPPLY_TYPES = [
     "Ally",
@@ -125,8 +125,6 @@ def write_to_file(data, path):
 
 
 if __name__ == "__main__":
-    settings = get_settings()
-
     URL = settings.CARD_LIST_URL
     page = requests.get(URL)
 
