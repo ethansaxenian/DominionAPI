@@ -11,20 +11,10 @@ router = APIRouter()
 
 
 @router.get("/", response_model=list[Card])
-def get_cards(
-    db: deta.Base = Depends(get_db),
-    page: int = Query(
-        default=1,
-        description="The page number to return.",
-    ),
-    size: int = Query(
-        default=200,
-        description="The page size.",
-    ),
-):
+def get_cards(db: deta.Base = Depends(get_db)):
     cards = get_all_cards(db)
 
-    return cards[size * (page - 1) : size * page]
+    return cards
 
 
 @router.get("/{id}", response_model=Card)

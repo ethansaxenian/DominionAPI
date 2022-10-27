@@ -14,7 +14,6 @@ class BaseCard(BaseModel):
     debt: Optional[int]
     text: str
     img_path: HttpUrl
-    img_b64: Optional[constr(max_length=100000)]
     link: HttpUrl
     in_supply: bool
 
@@ -27,6 +26,3 @@ class CardCreate(BaseCard):
 
 class Card(BaseCard):
     key: str
-
-    class Config:
-        orm_mode = True

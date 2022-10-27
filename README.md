@@ -2,15 +2,17 @@
 
 An API for the game Dominion
 
-Powered by [FastAPI](https://fastapi.tiangolo.com/)
+Powered by [FastAPI](https://fastapi.tiangolo.com/) and [Deta](https://www.deta.sh/)
 
 ## Installation and setup instructions:
 
 ### Set up the database:
-Add `DATABASE_URL=<your_database_url>` to the `.env` file. By default this is set to `sqlite:///dominion.db`.
+DominionAPI uses [Deta Base](https://docs.deta.sh/docs/base/about). 
+To configure, add `DETA_BASE_PROJECT_KEY=<your_project_key>` to the `.env` file.
 
-DominionAPI currently supports sqlite and postgresql databases. 
+To create a new project key, visit your [Deta dashboard](https://web.deta.sh/home).
 
+Optionally, add `DETA_BASE_NAME=<your_database_name>` to the `.env` file to customize the name of your database. By default this is set to `dominion-db`.
 
 ### Run the development server:
 Make sure you have `poetry` installed on your machine. Instructions can be found at [https://python-poetry.org/docs](https://python-poetry.org/docs).
@@ -23,8 +25,8 @@ Run `make help` to view the list of available commands.
 
 
 ### Deployment:
-Dominion API is deployed by [deta](https://www.deta.sh/). See the [docs](https://docs.deta.sh/docs/home) for details about deployment or you can quickly deploy your own instance of the API with the button below.
+Dominion API is deployed by [deta](https://www.deta.sh/). See the [docs](https://docs.deta.sh/docs/home) for details about deployment, or you can quickly deploy your own instance of the API with the button below.
 
-Make sure to configure the `API_KEY` and `DATABASE_URL` environment variables.
+Make sure to configure the `API_KEY` and `DETA_BASE_PROJECT_KEY` environment variables.
 
 [![Deploy](https://button.deta.dev/1/svg)](https://go.deta.dev/deploy?repo=https://github.com/ethansaxenian/DominionAPI)
