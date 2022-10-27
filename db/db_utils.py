@@ -25,7 +25,7 @@ def get_random_card(db: Session) -> Optional[CardAsDict]:
 
 def search_cards_with_query(
     db: Session,
-    is_postgress: bool,
+    is_postgres: bool,
     name: Optional[str],
     expansion: Optional[str],
     card_types: list[str],
@@ -48,7 +48,7 @@ def search_cards_with_query(
     for card_type in card_types:
         card_type_filter = (
             models.Card.types_case_insensitive.any(case_insensitive(card_type))
-            if is_postgress
+            if is_postgres
             else models.Card.types_case_insensitive.contains(
                 case_insensitive(card_type)
             )

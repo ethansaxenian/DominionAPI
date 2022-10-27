@@ -5,3 +5,4 @@ LICENSE
 poetry.lock
 pyproject.toml
 data
+dominion.db
