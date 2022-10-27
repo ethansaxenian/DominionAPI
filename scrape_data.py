@@ -1,8 +1,9 @@
+import json
 from base64 import b64encode
 
 import requests
 from bs4 import BeautifulSoup
-import json
+from tqdm import tqdm
 
 from core.config import get_settings
 
@@ -84,7 +85,11 @@ def get_card_data(soup):
 
     table_rows = soup.find_all("table", class_="wikitable sortable")[0].find_all("tr")
 
-    for row in table_rows[1:]:
+    pbar = tqdm(
+        table_rows[1:],
+        bar_format="{desc:<30} {percentage:3.0f}%|{bar}| {n_fmt}/{total_fmt}",
+    )
+    for row in pbar:
         columns = row.find_all("td")
         name = columns[0].find_all("a")[0].find_all("span")[0].text
         expansion = columns[1].find_all("a")[0].text
@@ -93,7 +98,7 @@ def get_card_data(soup):
         text = get_text(columns)
         img = get_image(columns)
         link = get_link(columns)
-        print(f"Scraping {name}...")
+        pbar.set_description(f"Scraping {name}")
         cards.append(
             {
                 "name": name,

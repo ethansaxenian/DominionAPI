@@ -1,5 +1,7 @@
 import json
 
+from tqdm import tqdm
+
 from core.config import get_settings
 from core.utils import CardAsDict, case_insensitive
 from db import Base, engine, get_db, models
@@ -11,8 +13,13 @@ def seed_db(data: list[CardAsDict]):
     Base.metadata.drop_all(bind=engine)
     Base.metadata.create_all(bind=engine)
 
-    for card in data:
-        print(f"Seeding {card['name']}...")
+    longest = len(max([card["name"] for card in data], key=len))
+    pbar = tqdm(
+        list(enumerate(data)),
+        bar_format=f"{{desc:<{longest + 9}}} {{percentage:3.0f}}%|{{bar}}| {{n_fmt}}/{{total_fmt}}",
+    )
+    for card in pbar:
+        pbar.set_description(f"Seeding {card['name']}")
         db_card = models.Card(
             **card,
             name_case_insensitive=case_insensitive(card["name"]),
