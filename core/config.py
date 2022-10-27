@@ -1,4 +1,3 @@
-from functools import cache
 import os
 from typing import Optional
 
@@ -26,8 +25,8 @@ class Settings(BaseSettings):
     DATABASE_URL: str = f"sqlite:///{os.path.join(ROOT_DIR, 'dominion.db')}"
     API_KEY: Optional[str]
     API_KEY_NAME: str = "api_key"
-    RENDER_DEPLOY_KEY: Optional[str]
-    RENDER_SERVICE_ID: Optional[str]
+    DETA_BASE_PROJECT_KEY: str
+    DETA_BASE_NAME: str = "dominion-db"
 
     class Config:
         env_file = ".env"
@@ -37,6 +36,4 @@ class Settings(BaseSettings):
         return self.DATABASE_URL.startswith("postgres")
 
 
-@cache
-def get_settings():
-    return Settings()
+settings = Settings()
