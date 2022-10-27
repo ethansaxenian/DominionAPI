@@ -1,17 +1,17 @@
 from typing import Optional
 
+import deta
 from fastapi import APIRouter, Depends, Query
 
-from api.common import CommonParams, common_parameters
 from api.schemas import Card, CardType, Expansion
-from db import search_cards_with_query
+from db import get_db, search_cards_with_query
 
 router = APIRouter()
 
 
 @router.get("/", response_model=list[Card])
 def search_cards(
-    commons: CommonParams = Depends(common_parameters),
+    db: deta.Base = Depends(get_db),
     name: Optional[str] = Query(
         default=None,
         description="A card name (case-insensitive). Any spaces and special characters are ignored",
@@ -41,8 +41,7 @@ def search_cards(
     ),
 ):
     cards = search_cards_with_query(
-        commons.db,
-        commons.settings.using_postgres(),
+        db,
         name,
         expansion,
         card_types,
@@ -51,7 +50,4 @@ def search_cards(
         debt,
         in_supply,
     )
-    if not commons.include_b64:
-        for card in cards:
-            card.img_b64 = None
     return cards

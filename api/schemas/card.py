@@ -1,6 +1,8 @@
 from typing import Optional
+
 from pydantic import BaseModel, HttpUrl, constr
-from .enums import Expansion, CardType
+
+from .enums import CardType, Expansion
 
 
 class BaseCard(BaseModel):
@@ -24,7 +26,7 @@ class CardCreate(BaseCard):
 
 
 class Card(BaseCard):
-    id: int
+    key: str
 
     class Config:
         orm_mode = True

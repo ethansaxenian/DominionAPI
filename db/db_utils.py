@@ -1,31 +1,28 @@
+import random
 from typing import Optional
 
-from sqlalchemy import func
-from sqlalchemy.orm import Session
+import deta
 
-from api import schemas
 from core.utils import CardAsDict, case_insensitive
-from db import models
 
 
-def get_all_cards(db: Session) -> list[CardAsDict]:
-    cards = db.query(models.Card).all()
-    return cards
+def get_all_cards(db: deta.Base) -> list[CardAsDict]:
+    res = db.fetch()
+    return res.items
 
 
-def get_card_by_id(db: Session, id: str) -> Optional[CardAsDict]:
-    card = db.query(models.Card).filter(models.Card.id == id).first()
+def get_card_by_id(db: deta.Base, id: str) -> Optional[CardAsDict]:
+    card = db.get(id)
     return card
 
 
-def get_random_card(db: Session) -> Optional[CardAsDict]:
-    card = db.query(models.Card).order_by(func.random()).first()
+def get_random_card(db: deta.Base) -> Optional[CardAsDict]:
+    card = random.choice(get_all_cards(db))
     return card
 
 
 def search_cards_with_query(
-    db: Session,
-    is_postgress: bool,
+    db: deta.Base,
     name: Optional[str],
     expansion: Optional[str],
     card_types: list[str],
@@ -35,56 +32,53 @@ def search_cards_with_query(
     in_supply: Optional[bool],
 ) -> list[CardAsDict]:
 
-    cards = db.query(models.Card)
+    query = {}
 
     if name is not None:
-        cards = cards.filter(
-            models.Card.name_case_insensitive == case_insensitive(name)
-        )
+        query["name_case_insensitive?contains"] = case_insensitive(name)
     if expansion is not None:
-        cards = cards.filter(
-            models.Card.expansion_case_insensitive == case_insensitive(expansion)
-        )
-    for card_type in card_types:
-        card_type_filter = (
-            models.Card.types_case_insensitive.any(case_insensitive(card_type))
-            if is_postgress
-            else models.Card.types_case_insensitive.contains(
-                case_insensitive(card_type)
-            )
-        )
-        cards = cards.filter(card_type_filter)
+        query["expansion_case_insensitive"] = case_insensitive(expansion)
     if coins is not None:
-        cards = cards.filter(models.Card.coins == coins)
+        query["coins"] = coins
     if potions is not None:
-        cards = cards.filter(models.Card.potions == potions)
+        query["potions"] = potions
     if debt is not None:
-        cards = cards.filter(models.Card.debt == debt)
+        query["debt"] = debt
     if in_supply is not None:
-        cards = cards.filter(models.Card.in_supply == in_supply)
+        query["in_supply"] = in_supply
 
-    return cards.all()
+    # handle type query with one value
+    if len(card_types) == 1:
+        query["types_case_insensitive?contains"] = case_insensitive(card_types[0])
+
+    cards = db.fetch(query).items
+
+    # handle query with multiple types
+    if len(card_types) > 1:
+        case_insensitive_type_query = {
+            case_insensitive(card_type) for card_type in card_types
+        }
+
+        cards = [
+            card
+            for card in cards
+            if set(card["types_case_insensitive"]) >= case_insensitive_type_query
+        ]
+
+    return cards
 
 
-def post_card(db: Session, card: schemas.CardCreate) -> int:
-    new_card = models.Card(**card.dict())
-    db.add(new_card)
-    db.commit()
-    db.refresh(new_card)
-    return new_card.id
+def post_card(db: deta.Base, new_card: CardAsDict) -> str:
+    card = db.put(new_card)
+    return card["key"]
 
 
-def delete_card(db: Session, id: str) -> schemas.CardCreate:
-    card_to_remove = db.query(models.Card).filter(models.Card.id == id).first()
-    db.delete(card_to_remove)
-    db.commit()
-    return card_to_remove
+def delete_card(db: deta.Base, id: str):
+    db.delete(id)
 
 
-def put_card(db: Session, id: str, card: schemas.CardCreate):
-    card_to_replace = db.query(models.Card).filter(models.Card.id == id).first()
-    for k, v in card.dict().items():
-        setattr(card_to_replace, k, v)
-    db.commit()
-    db.refresh(card_to_replace)
-    return card_to_replace
+def put_card(db: deta.Base, id: str, card: CardAsDict) -> Optional[Exception]:
+    try:
+        db.update(card, id)
+    except Exception as e:
+        return e
