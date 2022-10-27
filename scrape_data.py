@@ -1,11 +1,10 @@
-import json
-import time
+from base64 import b64encode
 
 import requests
 from bs4 import BeautifulSoup
-from tqdm import tqdm
+import json
 
-from core.config import settings
+from core.config import get_settings
 
 NON_SUPPLY_TYPES = [
     "Ally",
@@ -85,8 +84,7 @@ def get_card_data(soup):
 
     table_rows = soup.find_all("table", class_="wikitable sortable")[0].find_all("tr")
 
-    pbar = tqdm(table_rows[1:], bar_format="{l_bar}{bar}| {n_fmt}/{total_fmt}")
-    for row in pbar:
+    for row in table_rows[1:]:
         columns = row.find_all("td")
         name = columns[0].find_all("a")[0].find_all("span")[0].text
         expansion = columns[1].find_all("a")[0].text
@@ -95,7 +93,7 @@ def get_card_data(soup):
         text = get_text(columns)
         img = get_image(columns)
         link = get_link(columns)
-        pbar.set_description(f"Scraping {name}")
+        print(f"Scraping {name}...")
         cards.append(
             {
                 "name": name,
@@ -106,6 +104,7 @@ def get_card_data(soup):
                 "debt": cost["debt"],
                 "text": text,
                 "img_path": img,
+                "img_b64": b64encode(requests.get(img).content).decode("utf-8"),
                 "link": link,
                 "in_supply": "this is not in the supply" not in text.lower()
                 and all(t not in NON_SUPPLY_TYPES for t in types),
@@ -121,6 +120,8 @@ def write_to_file(data, path):
 
 
 if __name__ == "__main__":
+    settings = get_settings()
+
     URL = settings.CARD_LIST_URL
     page = requests.get(URL)
 
