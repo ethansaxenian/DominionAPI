@@ -10,7 +10,7 @@ homepage = "https://dominion-api.deta.dev/docs"
 
 [tool.poetry.dependencies]
 python = "^3.9"
-fastapi = "^0.85.2"
+fastapi = "^0.86.0"
 uvicorn = "^0.19.0"
 SQLAlchemy = "^1.4.43"
 psycopg2-binary = "^2.9.5"
