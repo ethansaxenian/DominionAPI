@@ -10,7 +10,7 @@ from db import get_db
 
 deta = Deta(settings.DETA_BASE_PROJECT_KEY)
 
-deta_drive = deta.Drive("dominion-images")
+deta_drive = deta.Drive(settings.DETA_DRIVE_NAME)
 
 
 def seed_db(data: list[CardAsDict]):
