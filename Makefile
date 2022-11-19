@@ -1,6 +1,7 @@
 VENV = .venv
 PYTHON = $(VENV)/bin/python
 RUN = poetry run
+ENV_FILE = .env
 
 help:
 	@echo "Usage: make [help|install|run|lint|format|scrape|seed|deploy|clean]"
@@ -57,6 +58,7 @@ REQUIREMENTS_FILE = requirements.txt
 .PHONY: deploy
 deploy:
 	poetry export --without-hashes --without-urls --output=$(REQUIREMENTS_FILE)
+	deta update --env $(ENV_FILE)
 	deta deploy
 	rm $(REQUIREMENTS_FILE)
 
