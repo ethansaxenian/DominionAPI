@@ -4,5 +4,4 @@
 .vscode
 __pycache__
 .env
-dominion.db
 images
