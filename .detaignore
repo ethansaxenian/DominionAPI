@@ -5,4 +5,6 @@ LICENSE
 poetry.lock
 pyproject.toml
 data
+dominion.db
+README.md
 images

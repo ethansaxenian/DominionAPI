@@ -1,5 +1,5 @@
 import json
-import time
+from base64 import b64encode
 
 import requests
 from bs4 import BeautifulSoup
@@ -85,7 +85,10 @@ def get_card_data(soup):
 
     table_rows = soup.find_all("table", class_="wikitable sortable")[0].find_all("tr")
 
-    pbar = tqdm(table_rows[1:], bar_format="{l_bar}{bar}| {n_fmt}/{total_fmt}")
+    pbar = tqdm(
+        table_rows[1:],
+        bar_format="{desc:<30} {percentage:3.0f}%|{bar}| {n_fmt}/{total_fmt}",
+    )
     for row in pbar:
         columns = row.find_all("td")
         name = columns[0].find_all("a")[0].find_all("span")[0].text
@@ -106,6 +109,7 @@ def get_card_data(soup):
                 "debt": cost["debt"],
                 "text": text,
                 "img_path": img,
+                "img_b64": b64encode(requests.get(img).content).decode("utf-8"),
                 "link": link,
                 "in_supply": "this is not in the supply" not in text.lower()
                 and all(t not in NON_SUPPLY_TYPES for t in types),

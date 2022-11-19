@@ -1,11 +1,30 @@
-from deta import Deta
+from sqlalchemy import create_engine
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
 
 from core.config import settings
 
-deta = Deta(settings.DETA_BASE_PROJECT_KEY)
+db_url = settings.DATABASE_URL
 
-db = deta.Base(settings.DETA_BASE_NAME)
+# workaround for some postgres urls
+if db_url.startswith("postgres://"):
+    db_url = db_url.replace("postgres://", "postgresql://", 1)
+
+engine = create_engine(
+    db_url,
+    connect_args={"check_same_thread": False} if db_url.startswith("sqlite") else {},
+)
+
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+Base = declarative_base()
+
+Base.metadata.create_all(bind=engine)
 
 
 def get_db():
-    yield db
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()

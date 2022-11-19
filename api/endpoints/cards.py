@@ -1,54 +1,67 @@
-import deta
-from fastapi import APIRouter, Depends, HTTPException, Query, Security, status
+from typing import Optional
 
+from fastapi import APIRouter, Depends, HTTPException, Query, Security, status
+from sqlalchemy.orm import Session
+
+from api.common import CommonParams, common_parameters
 from api.auth import get_api_key
 from api.schemas import Card
 from api.schemas.card import BaseCard
 from core.utils import autofill_card_attrs
-from db import delete_card, get_all_cards, get_card_by_id, get_db, post_card, put_card
+from db import post_card, delete_card, get_all_cards, get_card_by_id, get_db, put_card
 
 router = APIRouter()
 
 
 @router.get("/", response_model=list[Card])
-def get_cards(db: deta.Base = Depends(get_db)):
-    cards = get_all_cards(db)
+def get_cards(
+    commons: CommonParams = Depends(common_parameters),
+    page: Optional[int] = Query(
+        default=None,
+        description="The page number to return.",
+    ),
+    size: int = Query(
+        default=100,
+        description="The page size.",
+    ),
+):
+    cards = get_all_cards(commons.db)
+    if not commons.include_b64:
+        for card in cards:
+            card.img_b64 = None
 
-    return cards
+    if page is not None:
+        return cards[size * (page - 1) : size * page]
+    else:
+        return cards
 
 
 @router.get("/{id}", response_model=Card)
-def get_card(id: str, db: deta.Base = Depends(get_db)):
-    card = get_card_by_id(db, id)
+def get_card(id: int, commons: CommonParams = Depends(common_parameters)):
+    card = get_card_by_id(commons.db, str(id))
 
-    if card is None:
+    if card:
+        if not commons.include_b64:
+            card.img_b64 = None
+        return card
+    else:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail=f"Card with id {id} not found"
         )
 
-    return card
 
-
-@router.post("/", response_model=str, dependencies=[Security(get_api_key)])
-def add_card(card: BaseCard, db: deta.Base = Depends(get_db)):
+@router.post("/", response_model=int, dependencies=[Security(get_api_key)])
+def add_card(card: BaseCard, db: Session = Depends(get_db)):
     new_card = autofill_card_attrs(card)
     return post_card(db, new_card)
 
 
-@router.delete("/", dependencies=[Security(get_api_key)])
-def remove_card(id: str, db: deta.Base = Depends(get_db)):
-    delete_card(db, id)
-    raise HTTPException(
-        status_code=status.HTTP_200_OK, detail=f"Card with id {id} deleted"
-    )
+@router.delete("/", response_model=Card, dependencies=[Security(get_api_key)])
+def remove_card(id: int, db: Session = Depends(get_db)):
+    return delete_card(db, str(id))
 
 
-@router.put("/{id}", dependencies=[Security(get_api_key)])
-def update_card(id: str, card: BaseCard, db: deta.Base = Depends(get_db)):
+@router.put("/{id}", response_model=Card, dependencies=[Security(get_api_key)])
+def update_card(id: int, card: BaseCard, db: Session = Depends(get_db)):
     new_card = autofill_card_attrs(card)
-    res = put_card(db, id, new_card)
-    if res is not None:
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Failed to update card with id {id}",
-        )
+    return put_card(db, str(id), new_card)

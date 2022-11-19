@@ -25,8 +25,6 @@ class Settings(BaseSettings):
     DATABASE_URL: str = f"sqlite:///{os.path.join(ROOT_DIR, 'dominion.db')}"
     API_KEY: Optional[str]
     API_KEY_NAME: str = "api_key"
-    DETA_BASE_PROJECT_KEY: str
-    DETA_BASE_NAME: str = "dominion-db"
 
     class Config:
         env_file = ".env"
