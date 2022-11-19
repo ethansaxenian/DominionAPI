@@ -48,7 +48,9 @@ scrape:
 
 .PHONY: seed
 seed:
+	mkdir -p images
 	$(PYTHON) seed_db.py
+	rm -rf images
 
 REQUIREMENTS_FILE = requirements.txt
 

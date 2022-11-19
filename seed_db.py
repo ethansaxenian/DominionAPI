@@ -1,10 +1,16 @@
 import json
+import urllib.request
 
+from deta import Deta
 from tqdm import tqdm
 
 from core.config import settings
 from core.utils import CardAsDict, case_insensitive
 from db import get_db
+
+deta = Deta(settings.DETA_BASE_PROJECT_KEY)
+
+deta_drive = deta.Drive("dominion-images")
 
 
 def seed_db(data: list[CardAsDict]):
@@ -26,6 +32,12 @@ def seed_db(data: list[CardAsDict]):
                 "types_case_insensitive": [case_insensitive(t) for t in card["types"]],
             }
         )
+
+        # there has to be a better way to upload an image from a url
+        img, _ = urllib.request.urlretrieve(
+            card["img_path"], f"images/{card['name']}.jpg"
+        )
+        deta_drive.put(case_insensitive(card["name"]), path=img)
 
 
 if __name__ == "__main__":
