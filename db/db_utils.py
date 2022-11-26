@@ -1,24 +1,26 @@
 import random
-from typing import Optional
+from typing import Iterator, Optional
 
 import deta
+from deta.drive import DriveStreamingBody
 
-from core.utils import CardAsDict, case_insensitive
+from api.schemas.card import CardCreate, DBCard
+from core.utils import case_insensitive
 
 
-def get_all_cards(db: deta.Base) -> list[CardAsDict]:
+def get_all_cards(db: deta.Base) -> list[DBCard]:
     res = db.fetch()
-    return res.items
+    return [DBCard.parse_obj(card) for card in res.items]
 
 
-def get_card_by_id(db: deta.Base, id: str) -> Optional[CardAsDict]:
+def get_card_by_id(db: deta.Base, id: str) -> Optional[DBCard]:
     card = db.get(id)
-    return card
+    return DBCard.parse_obj(card)
 
 
-def get_random_card(db: deta.Base) -> Optional[CardAsDict]:
+def get_random_card(db: deta.Base) -> Optional[DBCard]:
     card = random.choice(get_all_cards(db))
-    return card
+    return DBCard.parse_obj(card)
 
 
 def search_cards_with_query(
@@ -30,7 +32,7 @@ def search_cards_with_query(
     potions: Optional[int],
     debt: Optional[int],
     in_supply: Optional[bool],
-) -> list[CardAsDict]:
+) -> list[DBCard]:
 
     query = {}
 
@@ -65,20 +67,29 @@ def search_cards_with_query(
             if set(card["types_case_insensitive"]) >= case_insensitive_type_query
         ]
 
-    return cards
+    return [DBCard.parse_obj(card) for card in cards]
 
 
-def post_card(db: deta.Base, new_card: CardAsDict) -> str:
-    card = db.put(new_card)
-    return card["key"]
+def post_card(db: deta.Base, new_card: CardCreate) -> str:
+    card = db.put(new_card.dict())
+    return card.key
 
 
 def delete_card(db: deta.Base, id: str):
     db.delete(id)
 
 
-def put_card(db: deta.Base, id: str, card: CardAsDict) -> Optional[Exception]:
+def put_card(db: deta.Base, id: str, card: CardCreate) -> Optional[Exception]:
     try:
-        db.update(card, id)
+        db.update(card.dict(), id)
     except Exception as e:
         return e
+
+
+def get_image_by_id(
+    db: deta.Base, drive: deta.Drive, id: str
+) -> Optional[DriveStreamingBody]:
+    if (card := get_card_by_id(db, id)) is None:
+        return None
+
+    return drive.get(f"{case_insensitive(card.name)}.png")
