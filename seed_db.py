@@ -1,19 +1,20 @@
 import json
 import urllib.request
+from typing import Any
 
 from deta import Deta
 from tqdm import tqdm
 
 from core.config import settings
-from core.utils import CardAsDict, case_insensitive
+from core.utils import case_insensitive
 from db import get_db
 
-deta = Deta(settings.DETA_BASE_PROJECT_KEY)
+deta = Deta(settings.DETA_PROJECT_KEY)
 
 deta_drive = deta.Drive(settings.DETA_DRIVE_NAME)
 
 
-def seed_db(data: list[CardAsDict]):
+def seed_db(data: list[dict[str, Any]]):
     deta_base = next(get_db())
 
     longest = len(max([card["name"] for card in data], key=len))
@@ -22,6 +23,7 @@ def seed_db(data: list[CardAsDict]):
         bar_format=f"{{desc:<{longest + 9}}} {{percentage:3.0f}}%|{{bar}}| {{n_fmt}}/{{total_fmt}}",
     )
     for (key, card) in pbar:
+
         pbar.set_description(f"Seeding {card['name']}")
         deta_base.put(
             {
@@ -35,9 +37,9 @@ def seed_db(data: list[CardAsDict]):
 
         # there has to be a better way to upload an image from a url
         img, _ = urllib.request.urlretrieve(
-            card["img_path"], f"images/{card['name']}.jpg"
+            card["img_path"], f"images/{card['name']}.png"
         )
-        deta_drive.put(case_insensitive(card["name"]), path=img)
+        deta_drive.put(f'{case_insensitive(card["name"])}.png', path=img)
 
 
 if __name__ == "__main__":

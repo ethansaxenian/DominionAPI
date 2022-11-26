@@ -1,6 +1,6 @@
 from typing import Optional
 
-from pydantic import BaseModel, HttpUrl, constr
+from pydantic import BaseModel, HttpUrl
 
 from .enums import CardType, Expansion
 
@@ -26,3 +26,7 @@ class CardCreate(BaseCard):
 
 class Card(BaseCard):
     key: str
+
+
+class DBCard(Card, BaseCard):
+    pass

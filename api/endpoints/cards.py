@@ -1,5 +1,5 @@
 import deta
-from fastapi import APIRouter, Depends, HTTPException, Query, Security, status
+from fastapi import APIRouter, Depends, HTTPException, Security, status
 
 from api.auth import get_api_key
 from api.schemas import Card
