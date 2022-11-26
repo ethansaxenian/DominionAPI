@@ -36,9 +36,7 @@ def seed_db(data: list[dict[str, Any]]):
         )
 
         # there has to be a better way to upload an image from a url
-        img, _ = urllib.request.urlretrieve(
-            card["img_path"], f"images/{card['name']}.png"
-        )
+        img, _ = urllib.request.urlretrieve(card["img_path"], f"tmp/{card['name']}.png")
         deta_drive.put(f'{case_insensitive(card["name"])}.png', path=img)
 
 

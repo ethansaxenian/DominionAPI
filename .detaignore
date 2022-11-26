@@ -5,5 +5,5 @@ LICENSE
 poetry.lock
 pyproject.toml
 data
-images
 README.md
+tmp

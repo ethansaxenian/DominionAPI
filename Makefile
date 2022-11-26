@@ -2,6 +2,7 @@ VENV = .venv
 PYTHON = $(VENV)/bin/python
 RUN = poetry run
 ENV_FILE = .env
+TMP_DIR = tmp
 
 help:
 	@echo "Usage: make [help|install|run|lint|format|scrape|seed|deploy|clean]"
@@ -49,9 +50,9 @@ scrape:
 
 .PHONY: seed
 seed:
-	mkdir -p images
+	mkdir -p $(TMP_DIR)
 	$(PYTHON) seed_db.py
-	rm -rf images
+	rm -rf $(TMP_DIR)
 
 REQUIREMENTS_FILE = requirements.txt
 
