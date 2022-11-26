@@ -16,7 +16,7 @@
   "core/config.py": "0d6ca6d24a43abcef02bb36e1e558d95c0e7d3647ab3009ccfc185c697128e68",
   "core/utils.py": "2668e0eceaf27492d9036a84a9a5c054d71ff2809ee8c30b28f7d25d8ee0a6b2",
   "db/__init__.py": "c7a289f0db6c96d6627bcfc73999155dbe222d749188badcb8ddfbbedd208b69",
-  "db/db_utils.py": "83f46f9eca603b4a19f0b41552b2689d2d033fc84af2a6a219743cbaa20abbd7",
+  "db/db_utils.py": "4f47e5ee72875dd1ce400f05dff61e581560392e5892ca24113d6a42fd709aae",
   "db/init_db.py": "20a454b104774d97c8784230d028e5dcb28cbb185727a78040ac45267b3a0834",
   "main.py": "d879e3a02fc249fdd8f139bf87aa9c4403859bc4acf3d64f80a64086d66f6f42",
   "requirements.txt": "e4afc0e6438a6ba4eda367e64affa8f9c8437b65d3fad0f2fd2e8de3e35d8e3e"

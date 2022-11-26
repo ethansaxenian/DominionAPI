@@ -1,8 +1,9 @@
 import random
-from typing import Iterator, Optional
+from typing import Optional
 
 import deta
 from deta.drive import DriveStreamingBody
+from fastapi.exceptions import ValidationError
 
 from api.schemas.card import CardCreate, DBCard
 from core.utils import case_insensitive
@@ -15,12 +16,18 @@ def get_all_cards(db: deta.Base) -> list[DBCard]:
 
 def get_card_by_id(db: deta.Base, id: str) -> Optional[DBCard]:
     card = db.get(id)
-    return DBCard.parse_obj(card)
+    try:
+        return DBCard.parse_obj(card)
+    except ValidationError:
+        return None
 
 
 def get_random_card(db: deta.Base) -> Optional[DBCard]:
     card = random.choice(get_all_cards(db))
-    return DBCard.parse_obj(card)
+    try:
+        return DBCard.parse_obj(card)
+    except ValidationError:
+        return None
 
 
 def search_cards_with_query(
