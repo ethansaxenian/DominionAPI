@@ -10,7 +10,7 @@ homepage = "https://dominion-api.deta.dev/docs"
 
 [tool.poetry.dependencies]
 python = "^3.9"
-fastapi = "^0.88.0"
+fastapi = "^0.91.0"
 python-dotenv = "^0.21.1"
 deta = "^1.1.0"
 
