@@ -16,6 +16,7 @@ class Expansion(str, Enum):
     INTRIGUE_1ST_EDITION = "Intrigue 1st Edition"
     MENAGERIE = "Menagerie"
     NOCTURNE = "Nocturne"
+    PLUNDER = "Plunder"
     PROMO = "Promo"
     PROSPERITY = "Prosperity"
     RENAISSANCE = "Renaissance"

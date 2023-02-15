@@ -1,7 +1,6 @@
 VENV = .venv
 PYTHON = $(VENV)/bin/python
 RUN = poetry run
-ENV_FILE = .env
 TMP_DIR = tmp
 
 help:
@@ -59,12 +58,11 @@ REQUIREMENTS_FILE = requirements.txt
 .PHONY: deploy
 deploy:
 	poetry export --without-hashes --without-urls --output=$(REQUIREMENTS_FILE)
-	deta update --env $(ENV_FILE)
-	deta deploy
+	space push
 	rm $(REQUIREMENTS_FILE)
 
 .PHONY: clean
 clean:
-	rm -rf $(VENV) $(DATA_PATH) dominion.db
+	rm -rf $(VENV) $(DATA_PATH)
 	find . -type d -name  "__pycache__" -exec rm -r {} +
 	@echo "to exit the virtual environment, run 'deactivate'"

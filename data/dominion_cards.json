@@ -9723,6 +9723,171 @@
     "in_supply": false
   },
   {
+    "name": "Cage",
+    "expansion": "Plunder",
+    "types": [
+      "Treasure",
+      "Duration"
+    ],
+    "coins": 2,
+    "potions": null,
+    "debt": null,
+    "text": "+1 Action\nSet aside up to 4 cards from your hand face down (on this). At the start of your next turn, discard them, then draw as many.",
+    "img_path": "http://wiki.dominionstrategy.com/images/thumb/6/60/Cage.jpg/200px-Cage.jpg",
+    "link": "http://wiki.dominionstrategy.com/index.php/Cage",
+    "in_supply": true
+  },
+  {
+    "name": "Grotto",
+    "expansion": "Plunder",
+    "types": [
+      "Treasure"
+    ],
+    "coins": 2,
+    "potions": null,
+    "debt": null,
+    "text": "+1 Action\nSet aside up to 4 cards from your hand face down (on this). At the start of your next turn, discard them, then draw as many.",
+    "img_path": "http://wiki.dominionstrategy.com/images/thumb/2/2a/Grotto.jpg/200px-Grotto.jpg",
+    "link": "http://wiki.dominionstrategy.com/index.php/Grotto",
+    "in_supply": true
+  },
+  {
+    "name": "Jewelled Egg",
+    "expansion": "Plunder",
+    "types": [
+      "Treasure",
+      "Duration"
+    ],
+    "coins": 2,
+    "potions": null,
+    "debt": null,
+    "text": "$1\n+1 Buy\nWhen you trash this, gain a Loot.",
+    "img_path": "http://wiki.dominionstrategy.com/images/thumb/f/fd/Jewelled_Egg.jpg/200px-Jewelled_Egg.jpg",
+    "link": "http://wiki.dominionstrategy.com/index.php/Jewelled_Egg",
+    "in_supply": true
+  },
+  {
+    "name": "Search",
+    "expansion": "Plunder",
+    "types": [
+      "Action",
+      "Duration"
+    ],
+    "coins": 2,
+    "potions": null,
+    "debt": null,
+    "text": "+$2\nThe next time a Supply pile empties, trash this and gain a Loot.",
+    "img_path": "http://wiki.dominionstrategy.com/images/thumb/0/01/Search.jpg/200px-Search.jpg",
+    "link": "http://wiki.dominionstrategy.com/index.php/Search",
+    "in_supply": true
+  },
+  {
+    "name": "Shaman",
+    "expansion": "Plunder",
+    "types": [
+      "Action"
+    ],
+    "coins": 2,
+    "potions": null,
+    "debt": null,
+    "text": "+1 Action\n+$1\nYou may trash a card from your hand.\nIn games using this, at the start of your turn, gain a card from the trash costing up to $6.",
+    "img_path": "http://wiki.dominionstrategy.com/images/thumb/d/d1/Shaman.jpg/200px-Shaman.jpg",
+    "link": "http://wiki.dominionstrategy.com/index.php/Shaman",
+    "in_supply": true
+  },
+  {
+    "name": "Secluded Shrine",
+    "expansion": "Plunder",
+    "types": [
+      "Action",
+      "Duration"
+    ],
+    "coins": 3,
+    "potions": null,
+    "debt": null,
+    "text": "1}}\nThe next time you gain a Treasure, trash up to 2 cards from your hand.",
+    "img_path": "http://wiki.dominionstrategy.com/images/thumb/8/80/Secluded_Shrine.jpg/200px-Secluded_Shrine.jpg",
+    "link": "http://wiki.dominionstrategy.com/index.php/Secluded_Shrine",
+    "in_supply": true
+  },
+  {
+    "name": "Siren",
+    "expansion": "Plunder",
+    "types": [
+      "Action",
+      "Duration",
+      "Attack"
+    ],
+    "coins": 3,
+    "potions": null,
+    "debt": null,
+    "text": "Each other player gains a Curse. At the start of your next turn, draw until you have 8 cards in hand.\nWhen you gain this, trash it unless you trash an Action from your hand.",
+    "img_path": "http://wiki.dominionstrategy.com/images/thumb/6/6b/Siren.jpg/200px-Siren.jpg",
+    "link": "http://wiki.dominionstrategy.com/index.php/Siren",
+    "in_supply": true
+  },
+  {
+    "name": "Stowaway",
+    "expansion": "Plunder",
+    "types": [
+      "Action",
+      "Duration",
+      "Reaction"
+    ],
+    "coins": 3,
+    "potions": null,
+    "debt": null,
+    "text": "+1 Action, +$1, and if you gain a card costing exactly $5 this turn, then at the start of your next turn, repeat this ability.",
+    "img_path": "http://wiki.dominionstrategy.com/images/thumb/6/66/Stowaway.jpg/200px-Stowaway.jpg",
+    "link": "http://wiki.dominionstrategy.com/index.php/Stowaway",
+    "in_supply": true
+  },
+  {
+    "name": "Taskmaster",
+    "expansion": "Plunder",
+    "types": [
+      "Action",
+      "Duration"
+    ],
+    "coins": 3,
+    "potions": null,
+    "debt": null,
+    "text": "At the start of your next turn, +2 Cards.\nWhen anyone gains a Duration card, you may play this from your hand.",
+    "img_path": "http://wiki.dominionstrategy.com/images/thumb/c/cc/Taskmaster.jpg/200px-Taskmaster.jpg",
+    "link": "http://wiki.dominionstrategy.com/index.php/Taskmaster",
+    "in_supply": true
+  },
+  {
+    "name": "Abundance",
+    "expansion": "Plunder",
+    "types": [
+      "Treasure",
+      "Duration"
+    ],
+    "coins": 4,
+    "potions": null,
+    "debt": null,
+    "text": "The next time you gain an Action card: +1 Buy and +$3.",
+    "img_path": "http://wiki.dominionstrategy.com/images/thumb/a/ac/Abundance.jpg/200px-Abundance.jpg",
+    "link": "http://wiki.dominionstrategy.com/index.php/Abundance",
+    "in_supply": true
+  },
+  {
+    "name": "Cabin Boy",
+    "expansion": "Plunder",
+    "types": [
+      "Action",
+      "Duration"
+    ],
+    "coins": 4,
+    "potions": null,
+    "debt": null,
+    "text": "+1 Card\n+1 Action\nAt the start of your next turn, choose one: +$2; or trash this to gain a Duration card.",
+    "img_path": "http://wiki.dominionstrategy.com/images/thumb/d/d1/Cabin_Boy.jpg/200px-Cabin_Boy.jpg",
+    "link": "http://wiki.dominionstrategy.com/index.php/Cabin_Boy",
+    "in_supply": true
+  },
+  {
     "name": "Black Market",
     "expansion": "Promo",
     "types": [

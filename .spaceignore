@@ -6,4 +6,4 @@ poetry.lock
 pyproject.toml
 data
 README.md
-tmp
+__pycache__
