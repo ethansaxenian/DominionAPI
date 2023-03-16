@@ -10,18 +10,62 @@ homepage = "https://dominionapi-1-u6800667.deta.app/docs"
 
 [tool.poetry.dependencies]
 python = "^3.9"
-fastapi = "^0.92.0"
-python-dotenv = "^0.21.1"
+fastapi = "^0.94.1"
+python-dotenv = "^1.0.0"
 deta = "^1.1.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.1.0"
-flake8 = "^5.0.4"
 beautifulsoup4 = "^4.11.2"
 requests = "^2.28.2"
 tqdm = "^4.64.1"
 uvicorn = "^0.19.0"
+ruff = "^0.0.256"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+extend-exclude = [
+    ".venv",
+    ".idea",
+    ".git",
+    "__pycache__",
+    ".ruff_cache"
+]
+ignore = [
+    "E501",
+    "UP007"
+]
+line-length = 88
+select = [
+    "A",
+    "B",
+    "C",
+    "C4",
+    "E",
+    "F",
+    "I",
+    "ISC",
+    "N",
+    "PGH",
+    "PTH",
+    "Q",
+    "S",
+    "SIM",
+    "TRY",
+    "UP",
+    "W",
+    "YTT"
+]
+
+[tool.ruff.per-file-ignores]
+"__init__.py" = ["F401", "F403"]
+"scrape_data.py" = ["S113"]
+
+[tool.ruff.flake8-bugbear]
+extend-immutable-calls = ["fastapi.Depends", "fastapi.Query", "fastapi.Security"]
+
+[tool.ruff.flake8-builtins]
+builtins-ignorelist = ["id"]

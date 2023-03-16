@@ -1,4 +1,4 @@
-import os
+from pathlib import Path
 from typing import Optional
 
 from pydantic import BaseSettings, HttpUrl
@@ -16,8 +16,8 @@ class Settings(BaseSettings):
     PROJECT_NAME: str = "Dominion API"
     PROJECT_DESCRIPTION: str = description
     API_PREFIX: str = "/api"
-    ROOT_DIR: str = os.path.realpath(os.path.join(os.path.dirname(__file__), ".."))
-    DATA_PATH: str = os.path.join(ROOT_DIR, "data/dominion_cards.json")
+    ROOT_DIR: Path = Path(__file__).resolve().parent.parent
+    DATA_PATH: Path = Path(ROOT_DIR, "data", "dominion_cards.json")
     AUTHOR_NAME: str = "Ethan Saxenian"
     AUTHOR_EMAIL: str = "ethansaxenian@gmail.com"
     LICENSE: str = "MIT"

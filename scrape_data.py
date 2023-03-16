@@ -1,5 +1,5 @@
 import json
-import time
+from pathlib import Path
 
 import requests
 from bs4 import BeautifulSoup
@@ -115,8 +115,8 @@ def get_card_data(soup):
     return cards
 
 
-def write_to_file(data, path):
-    with open(path, "w") as file:
+def write_to_file(data, path: Path):
+    with path.open("w") as file:
         file.write(json.dumps(data, indent=2))
 
 

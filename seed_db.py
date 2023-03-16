@@ -22,8 +22,7 @@ def seed_db(data: list[dict[str, Any]]):
         list(enumerate(data)),
         bar_format=f"{{desc:<{longest + 9}}} {{percentage:3.0f}}%|{{bar}}| {{n_fmt}}/{{total_fmt}}",
     )
-    for (key, card) in pbar:
-
+    for key, card in pbar:
         pbar.set_description(f"Seeding {card['name']}")
         deta_base.put(
             {
@@ -41,6 +40,6 @@ def seed_db(data: list[dict[str, Any]]):
 
 
 if __name__ == "__main__":
-    with open(settings.DATA_PATH) as file:
+    with settings.DATA_PATH.open() as file:
         data = json.load(file)
         seed_db(data)

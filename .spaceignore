@@ -6,4 +6,12 @@ poetry.lock
 pyproject.toml
 data
 README.md
-__pycache__
+.env
+.venv
+.git
+.github
+.gitignore
+.idea
+.vscode
+.space
+.ruff_cache

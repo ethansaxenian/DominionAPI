@@ -2,6 +2,7 @@ VENV = .venv
 PYTHON = $(VENV)/bin/python
 RUN = poetry run
 TMP_DIR = tmp
+DATA_PATH = data/dominion_cards.json
 
 help:
 	@echo "Usage: make [help|install|run|lint|format|scrape|seed|deploy|clean]"
@@ -12,7 +13,7 @@ help:
 	@echo "    run"
 	@echo "        Run the development server."
 	@echo "    lint"
-	@echo "        Check style with flake8."
+	@echo "        Check style with ruff."
 	@echo "    format"
 	@echo "        Format the code with black."
 	@echo "    scrape"
@@ -36,7 +37,7 @@ run:
 
 .PHONY: lint
 lint:
-	$(RUN) flake8 .
+	$(RUN) ruff .
 
 .PHONY: format
 format:

@@ -9732,7 +9732,7 @@
     "coins": 2,
     "potions": null,
     "debt": null,
-    "text": "+1 Action\nSet aside up to 4 cards from your hand face down (on this). At the start of your next turn, discard them, then draw as many.",
+    "text": "Set aside up to 4 cards from your hand face down (on this). The next time you gain a Victory card, trash this, and put the set aside cards into your hand at end of turn.",
     "img_path": "http://wiki.dominionstrategy.com/images/thumb/6/60/Cage.jpg/200px-Cage.jpg",
     "link": "http://wiki.dominionstrategy.com/index.php/Cage",
     "in_supply": true
@@ -9741,7 +9741,8 @@
     "name": "Grotto",
     "expansion": "Plunder",
     "types": [
-      "Treasure"
+      "Action",
+      "Duration"
     ],
     "coins": 2,
     "potions": null,
@@ -9805,7 +9806,7 @@
     "coins": 3,
     "potions": null,
     "debt": null,
-    "text": "1}}\nThe next time you gain a Treasure, trash up to 2 cards from your hand.",
+    "text": "+$1\nThe next time you gain a Treasure, trash up to 2 cards from your hand.",
     "img_path": "http://wiki.dominionstrategy.com/images/thumb/8/80/Secluded_Shrine.jpg/200px-Secluded_Shrine.jpg",
     "link": "http://wiki.dominionstrategy.com/index.php/Secluded_Shrine",
     "in_supply": true
@@ -9837,7 +9838,7 @@
     "coins": 3,
     "potions": null,
     "debt": null,
-    "text": "+1 Action, +$1, and if you gain a card costing exactly $5 this turn, then at the start of your next turn, repeat this ability.",
+    "text": "At the start of your next turn, +2 Cards.\nWhen anyone gains a Duration card, you may play this from your hand.",
     "img_path": "http://wiki.dominionstrategy.com/images/thumb/6/66/Stowaway.jpg/200px-Stowaway.jpg",
     "link": "http://wiki.dominionstrategy.com/index.php/Stowaway",
     "in_supply": true
@@ -9852,7 +9853,7 @@
     "coins": 3,
     "potions": null,
     "debt": null,
-    "text": "At the start of your next turn, +2 Cards.\nWhen anyone gains a Duration card, you may play this from your hand.",
+    "text": "+1 Action, +$1, and if you gain a card costing exactly $5 this turn, then at the start of your next turn, repeat this ability.",
     "img_path": "http://wiki.dominionstrategy.com/images/thumb/c/cc/Taskmaster.jpg/200px-Taskmaster.jpg",
     "link": "http://wiki.dominionstrategy.com/index.php/Taskmaster",
     "in_supply": true
@@ -9885,6 +9886,65 @@
     "text": "+1 Card\n+1 Action\nAt the start of your next turn, choose one: +$2; or trash this to gain a Duration card.",
     "img_path": "http://wiki.dominionstrategy.com/images/thumb/d/d1/Cabin_Boy.jpg/200px-Cabin_Boy.jpg",
     "link": "http://wiki.dominionstrategy.com/index.php/Cabin_Boy",
+    "in_supply": true
+  },
+  {
+    "name": "Crucible",
+    "expansion": "Plunder",
+    "types": [
+      "Treasure"
+    ],
+    "coins": 4,
+    "potions": null,
+    "debt": null,
+    "text": "Trash a card from your hand. +$1 per $1 it costs.",
+    "img_path": "http://wiki.dominionstrategy.com/images/thumb/9/9a/Crucible.jpg/200px-Crucible.jpg",
+    "link": "http://wiki.dominionstrategy.com/index.php/Crucible",
+    "in_supply": true
+  },
+  {
+    "name": "Flagship",
+    "expansion": "Plunder",
+    "types": [
+      "Action",
+      "Duration",
+      "Command"
+    ],
+    "coins": 4,
+    "potions": null,
+    "debt": null,
+    "text": "+$2\nThe next time you play a non-Command Action card, replay it.",
+    "img_path": "http://wiki.dominionstrategy.com/images/thumb/2/28/Flagship.jpg/200px-Flagship.jpg",
+    "link": "http://wiki.dominionstrategy.com/index.php/Flagship",
+    "in_supply": true
+  },
+  {
+    "name": "Fortune Hunter",
+    "expansion": "Plunder",
+    "types": [
+      "Action"
+    ],
+    "coins": 4,
+    "potions": null,
+    "debt": null,
+    "text": "+$2\nLook at the top 3 cards of your deck. You may play a Treasure from them. Put the rest back in any order.",
+    "img_path": "http://wiki.dominionstrategy.com/images/thumb/1/1a/Fortune_Hunter.jpg/200px-Fortune_Hunter.jpg",
+    "link": "http://wiki.dominionstrategy.com/index.php/Fortune_Hunter",
+    "in_supply": true
+  },
+  {
+    "name": "Gondola",
+    "expansion": "Plunder",
+    "types": [
+      "Treasure",
+      "Duration"
+    ],
+    "coins": 4,
+    "potions": null,
+    "debt": null,
+    "text": "Either now or at the start of your next turn: +$2\nWhen you gain this, you may play an Action card from your hand.",
+    "img_path": "http://wiki.dominionstrategy.com/images/thumb/e/eb/Gondola.jpg/200px-Gondola.jpg",
+    "link": "http://wiki.dominionstrategy.com/index.php/Gondola",
     "in_supply": true
   },
   {
