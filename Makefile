@@ -21,7 +21,7 @@ help:
 	@echo "    seed"
 	@echo "        Seed the database with dominion card data."
 	@echo "    deploy"
-	@echo "        Deploy the api to Render.com. RENDER_DEPLOY_KEY and RENDER_SERVICE_ID environment variables are required."
+	@echo "        Deploy the api to Deta space."
 	@echo "    clean"
 	@echo "        Remove the virtual environment, python caches, and card data."
 
