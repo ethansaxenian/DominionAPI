@@ -2,7 +2,7 @@ import deta
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.responses import StreamingResponse
 
-from db import get_drive, get_image_by_id, DBType
+from db import DBType, get_drive, get_image_by_id
 
 router = APIRouter()
 

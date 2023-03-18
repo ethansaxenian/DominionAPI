@@ -3,7 +3,7 @@ from typing import Optional
 from fastapi import APIRouter, Query
 
 from api.schemas import Card, CardType, Expansion
-from db import search_cards_with_query, DBType
+from db import DBType, search_cards_with_query
 
 router = APIRouter()
 

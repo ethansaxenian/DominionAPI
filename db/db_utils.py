@@ -8,6 +8,7 @@ from fastapi.exceptions import ValidationError
 
 from api.schemas import CardCreate, DBCard
 from core.utils import case_insensitive
+
 from .init_db import get_db
 
 DBType = Annotated[deta.Base, Depends(get_db)]
