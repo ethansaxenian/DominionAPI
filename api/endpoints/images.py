@@ -2,15 +2,13 @@ import deta
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.responses import StreamingResponse
 
-from db import get_db, get_drive, get_image_by_id
+from db import get_drive, get_image_by_id, DBType
 
 router = APIRouter()
 
 
 @router.get("/{id}", response_class=StreamingResponse)
-def get_image(
-    id: str, db: deta.Base = Depends(get_db), drive: deta.Drive = Depends(get_drive)
-):
+def get_image(id: str, db: DBType, drive: deta.Drive = Depends(get_drive)):
     image = get_image_by_id(db, drive, id)
 
     if image is None:

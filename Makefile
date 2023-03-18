@@ -23,7 +23,7 @@ help:
 	@echo "    deploy"
 	@echo "        Deploy the api to Deta space."
 	@echo "    clean"
-	@echo "        Remove the virtual environment, python caches, and card data."
+	@echo "        Remove the virtual environment and python caches."
 
 
 .PHONY: install
@@ -64,6 +64,6 @@ deploy:
 
 .PHONY: clean
 clean:
-	rm -rf $(VENV) $(DATA_PATH)
+	rm -rf $(VENV)
 	find . -type d -name  "__pycache__" -exec rm -r {} +
 	@echo "to exit the virtual environment, run 'deactivate'"

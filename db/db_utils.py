@@ -1,12 +1,16 @@
 import random
-from typing import Optional
+from typing import Annotated, Optional
 
 import deta
 from deta.drive import DriveStreamingBody
+from fastapi import Depends
 from fastapi.exceptions import ValidationError
 
-from api.schemas.card import CardCreate, DBCard
+from api.schemas import CardCreate, DBCard
 from core.utils import case_insensitive
+from .init_db import get_db
+
+DBType = Annotated[deta.Base, Depends(get_db)]
 
 
 def get_all_cards(db: deta.Base) -> list[DBCard]:
@@ -40,7 +44,6 @@ def search_cards_with_query(
     debt: Optional[int],
     in_supply: Optional[bool],
 ) -> list[DBCard]:
-
     query = {}
 
     if name is not None:

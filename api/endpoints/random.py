@@ -1,14 +1,13 @@
-import deta
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, HTTPException, status
 
 from api.schemas import Card
-from db import get_db, get_random_card
+from db import get_random_card, DBType
 
 router = APIRouter()
 
 
 @router.get("/", response_model=Card)
-def random_card(db: deta.Base = Depends(get_db)):
+def random_card(db: DBType):
     card = get_random_card(db)
 
     if card is None:

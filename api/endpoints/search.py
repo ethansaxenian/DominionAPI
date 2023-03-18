@@ -1,17 +1,16 @@
 from typing import Optional
 
-import deta
-from fastapi import APIRouter, Depends, Query
+from fastapi import APIRouter, Query
 
 from api.schemas import Card, CardType, Expansion
-from db import get_db, search_cards_with_query
+from db import search_cards_with_query, DBType
 
 router = APIRouter()
 
 
 @router.get("/", response_model=list[Card])
 def search_cards(
-    db: deta.Base = Depends(get_db),
+    db: DBType,
     name: Optional[str] = Query(
         default=None,
         description="A card name (case-insensitive). Any spaces and special characters are ignored",
