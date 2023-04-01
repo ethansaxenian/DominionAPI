@@ -15,7 +15,7 @@ python-dotenv = "^1.0.0"
 deta = "^1.1.0"
 
 [tool.poetry.group.dev.dependencies]
-black = "^23.1.0"
+black = "^23.3.0"
 beautifulsoup4 = "^4.11.2"
 requests = "^2.28.2"
 tqdm = "^4.64.1"
