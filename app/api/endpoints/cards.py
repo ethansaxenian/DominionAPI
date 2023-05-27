@@ -1,9 +1,16 @@
 from fastapi import APIRouter, HTTPException, Security, status
 
-from api.auth import get_api_key
-from api.schemas import BaseCard, Card
-from core.utils import autofill_card_attrs
-from db import DBType, delete_card, get_all_cards, get_card_by_id, post_card, put_card
+from app.api.auth import get_api_key
+from app.api.schemas import BaseCard, Card
+from app.core.utils import autofill_card_attrs
+from app.db import (
+    DBType,
+    delete_card,
+    get_all_cards,
+    get_card_by_id,
+    post_card,
+    put_card,
+)
 
 router = APIRouter()
 

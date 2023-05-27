@@ -10,17 +10,17 @@ homepage = "https://dominionapi-1-u6800667.deta.app/docs"
 
 [tool.poetry.dependencies]
 python = "^3.9"
-fastapi = "^0.95.1"
+fastapi = "^0.95.2"
 python-dotenv = "^1.0.0"
 deta = "^1.1.0"
+uvicorn = "^0.22.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.3.0"
 beautifulsoup4 = "^4.12.2"
-requests = "^2.28.2"
-tqdm = "^4.64.1"
-uvicorn = "^0.22.0"
-ruff = "^0.0.263"
+requests = "^2.31.0"
+tqdm = "^4.65.0"
+ruff = "^0.0.270"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
@@ -35,7 +35,7 @@ extend-exclude = [
     "__pycache__",
     ".ruff_cache"
 ]
-ignore = ["E501"]
+ignore = ["E501", "S311"]
 line-length = 88
 select = [
     "A",
@@ -61,6 +61,7 @@ select = [
 [tool.ruff.per-file-ignores]
 "__init__.py" = ["F401", "F403"]
 "scrape_data.py" = ["S113"]
+"seed_db.py" = ["S310"]
 
 [tool.ruff.flake8-bugbear]
 extend-immutable-calls = ["fastapi.Depends", "fastapi.Query", "fastapi.Security"]

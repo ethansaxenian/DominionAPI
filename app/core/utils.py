@@ -1,4 +1,4 @@
-from api.schemas import BaseCard, CardCreate
+from app.api.schemas import BaseCard, CardCreate
 
 
 def case_insensitive(string: str):

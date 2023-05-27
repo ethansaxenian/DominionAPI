@@ -11,3 +11,7 @@ micros:
     presets:
       env:
         - name: API_KEY
+    run: uvicorn app.main:app
+    dev: .venv/bin/uvicorn app.main:app --reload
+    include:
+      - app/

@@ -5,7 +5,7 @@ import requests
 from bs4 import BeautifulSoup
 from tqdm import tqdm
 
-from core.config import settings
+from app.core.config import settings
 
 NON_SUPPLY_TYPES = [
     "Ally",

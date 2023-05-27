@@ -5,9 +5,9 @@ from typing import Any
 from deta import Deta
 from tqdm import tqdm
 
-from core.config import settings
-from core.utils import case_insensitive
-from db import get_db
+from app.core.config import settings
+from app.core.utils import case_insensitive
+from app.db import get_db
 
 deta = Deta(settings.DETA_PROJECT_KEY)
 

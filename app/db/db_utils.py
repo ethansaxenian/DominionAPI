@@ -6,8 +6,8 @@ from deta.drive import DriveStreamingBody
 from fastapi import Depends
 from fastapi.exceptions import ValidationError
 
-from api.schemas import CardCreate, DBCard
-from core.utils import case_insensitive
+from app.api.schemas import CardCreate, DBCard
+from app.core.utils import case_insensitive
 
 from .init_db import get_db
 

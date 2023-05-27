@@ -33,7 +33,7 @@ install: pyproject.toml
 
 .PHONY: run
 run:
-	$(RUN) uvicorn main:app --reload
+	$(RUN) uvicorn app.main:app --reload
 
 .PHONY: lint
 lint:

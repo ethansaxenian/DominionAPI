@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, status
 
-from api.schemas import Card
-from db import DBType, get_random_card
+from app.api.schemas import Card
+from app.db import DBType, get_random_card
 
 router = APIRouter()
 
