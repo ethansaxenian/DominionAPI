@@ -3,14 +3,14 @@ name = "Dominion API"
 version = "0.1.0"
 description = "An API for the game Dominion"
 license = "MIT"
-authors = ["Ethan Saxenian <ethansaxenian@gmail.com>"]
+authors = ["Ethan Saxenian <ethansaxenian+github@proton.me>"]
 readme = "README.md"
 repository = "https://github.com/ethansaxenian/DominionAPI"
-homepage = "https://dominionapi-1-u6800667.deta.app/docs"
+homepage = "https://dominion-api.deta.dev/docs"
 
 [tool.poetry.dependencies]
 python = "^3.9"
-fastapi = "^0.95.2"
+fastapi = "^0.96.1"
 python-dotenv = "^1.0.0"
 deta = "^1.1.0"
 uvicorn = "^0.22.0"
