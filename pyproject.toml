@@ -39,6 +39,7 @@ ignore = ["E501", "S311"]
 line-length = 88
 select = [
     "A",
+    "ANN",
     "B",
     "C",
     "C4",

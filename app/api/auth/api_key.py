@@ -12,7 +12,7 @@ api_key_header_auth = APIKeyHeader(
 )
 
 
-async def get_api_key(api_key_header: str = Security(api_key_header_auth)):
+async def get_api_key(api_key_header: str = Security(api_key_header_auth)) -> str:
     if isinstance(api_key_header, str) and secrets.compare_digest(
         api_key_header, settings.API_KEY
     ):

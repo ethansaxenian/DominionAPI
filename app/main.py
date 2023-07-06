@@ -18,5 +18,5 @@ app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"])
 
 
 @app.get("/", response_class=HTMLResponse, include_in_schema=False)
-def base():
+def base() -> RedirectResponse:
     return RedirectResponse(url="/docs")
