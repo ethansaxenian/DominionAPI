@@ -13,7 +13,7 @@ python = "^3.9"
 fastapi = "^0.96.1"
 python-dotenv = "^1.0.0"
 deta = "^1.1.0"
-uvicorn = "^0.22.0"
+uvicorn = "^0.23.2"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.3.0"
