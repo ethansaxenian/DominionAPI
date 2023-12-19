@@ -16,11 +16,10 @@ deta = "^1.1.0"
 uvicorn = "^0.22.0"
 
 [tool.poetry.group.dev.dependencies]
-black = "^23.3.0"
 beautifulsoup4 = "^4.12.2"
 requests = "^2.31.0"
 tqdm = "^4.65.0"
-ruff = "^0.0.270"
+ruff = "^0.1.8"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
@@ -35,7 +34,7 @@ extend-exclude = [
     "__pycache__",
     ".ruff_cache"
 ]
-ignore = ["E501", "S311"]
+ignore = ["E501", "ISC001", "S311"]
 line-length = 88
 select = [
     "A",

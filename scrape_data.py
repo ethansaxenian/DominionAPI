@@ -105,8 +105,8 @@ def get_card_data(soup):
                 "potions": cost["potions"],
                 "debt": cost["debt"],
                 "text": text,
-                "img_path": img,
-                "link": link,
+                "img_path": img.replace("http://", "https://"),
+                "link": link.replace("http://", "https://"),
                 "in_supply": "this is not in the supply" not in text.lower()
                 and all(t not in NON_SUPPLY_TYPES for t in types),
             }

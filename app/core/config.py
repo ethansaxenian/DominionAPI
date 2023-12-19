@@ -17,7 +17,7 @@ class Settings(BaseSettings):
     PROJECT_DESCRIPTION: str = description
     API_PREFIX: str = "/api"
     ROOT_DIR: Path = Path(__file__).resolve().parent.parent
-    DATA_PATH: Path = Path(ROOT_DIR, "data", "dominion_cards.json")
+    DATA_PATH: Path = Path(ROOT_DIR.parent, "data", "dominion_cards.json")
     AUTHOR_NAME: str = "Ethan Saxenian"
     AUTHOR_EMAIL: str = "ethansaxenian+github@proton.me"
     LICENSE: str = "MIT"

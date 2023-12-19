@@ -15,7 +15,7 @@ help:
 	@echo "    lint"
 	@echo "        Check style with ruff."
 	@echo "    format"
-	@echo "        Format the code with black."
+	@echo "        Format the code with ruff."
 	@echo "    scrape"
 	@echo "        Scrape dominion card data from the web."
 	@echo "    seed"
@@ -37,11 +37,11 @@ run:
 
 .PHONY: lint
 lint:
-	$(RUN) ruff .
+	$(RUN) ruff check .
 
 .PHONY: format
 format:
-	$(RUN) black .
+	$(RUN) ruff format .
 
 .PHONY: scrape
 scrape:
