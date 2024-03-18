@@ -1,49 +1,51 @@
 import random
-from typing import Annotated, Optional
+from typing import Annotated
 
 import deta
 from deta.drive import DriveStreamingBody
 from fastapi import Depends
-from fastapi.exceptions import ValidationError
+from pydantic import ValidationError
 
 from app.api.schemas import CardCreate, DBCard
+from app.api.schemas.enums import CardType
 from app.core.utils import case_insensitive
 
-from .init_db import get_db
+from .init_db import get_db, get_drive
 
 DBType = Annotated[deta.Base, Depends(get_db)]
+DriveType = Annotated[deta.Drive, Depends(get_drive)]
 
 
 def get_all_cards(db: deta.Base) -> list[DBCard]:
     res = db.fetch()
-    return [DBCard.parse_obj(card) for card in res.items]
+    return [DBCard.model_validate(card) for card in res.items]
 
 
-def get_card_by_id(db: deta.Base, id: str) -> Optional[DBCard]:
+def get_card_by_id(db: deta.Base, id: str) -> DBCard | None:
     card = db.get(id)
     try:
-        return DBCard.parse_obj(card)
+        return DBCard.model_validate(card)
     except ValidationError:
         return None
 
 
-def get_random_card(db: deta.Base) -> Optional[DBCard]:
+def get_random_card(db: deta.Base) -> DBCard | None:
     card = random.choice(get_all_cards(db))
     try:
-        return DBCard.parse_obj(card)
+        return DBCard.model_validate(card)
     except ValidationError:
         return None
 
 
 def search_cards_with_query(
     db: deta.Base,
-    name: Optional[str],
-    expansion: Optional[str],
-    card_types: list[str],
-    coins: Optional[int],
-    potions: Optional[int],
-    debt: Optional[int],
-    in_supply: Optional[bool],
+    name: str | None,
+    expansion: str | None,
+    card_types: list[CardType],
+    coins: int | None,
+    potions: int | None,
+    debt: int | None,
+    in_supply: bool | None,
 ) -> list[DBCard]:
     query = {}
 
@@ -78,28 +80,28 @@ def search_cards_with_query(
             if set(card["types_case_insensitive"]) >= case_insensitive_type_query
         ]
 
-    return [DBCard.parse_obj(card) for card in cards]
+    return [DBCard.model_validate(card) for card in cards]
 
 
 def post_card(db: deta.Base, new_card: CardCreate) -> str:
-    card = db.put(new_card.dict())
+    card = db.put(new_card.model_dump())
     return card.key
 
 
-def delete_card(db: deta.Base, id: str):
+def delete_card(db: deta.Base, id: str) -> None:
     db.delete(id)
 
 
-def put_card(db: deta.Base, id: str, card: CardCreate) -> Optional[Exception]:
+def put_card(db: deta.Base, id: str, card: CardCreate) -> Exception | None:
     try:
-        db.update(card.dict(), id)
+        db.update(card.model_dump(), id)
     except Exception as e:
         return e
 
 
 def get_image_by_id(
     db: deta.Base, drive: deta.Drive, id: str
-) -> Optional[DriveStreamingBody]:
+) -> DriveStreamingBody | None:
     if (card := get_card_by_id(db, id)) is None:
         return None
 

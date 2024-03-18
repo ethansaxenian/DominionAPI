@@ -1,49 +1,60 @@
-from typing import Optional
+from typing import Annotated
 
 from fastapi import APIRouter, Query
 
-from app.api.schemas import Card, CardType, Expansion
-from app.db import DBType, search_cards_with_query
+from app.api.schemas import CardType, Expansion
+from app.api.schemas.card import DBCard
+from app.db.crud import DBType, search_cards_with_query
 
 router = APIRouter()
 
 
-@router.get("/", response_model=list[Card])
+@router.get("/")
 def search_cards(
     db: DBType,
-    name: Optional[str] = Query(
-        default=None,
-        description="A card name (case-insensitive). Any spaces and special characters are ignored",
-    ),
-    expansion: Optional[Expansion] = Query(
-        default=None,
-        description="An expansion (case-insensitive). Any spaces and special characters are ignored",
-    ),
-    card_types: Optional[list[CardType]] = Query(
-        default=[],
-        alias="type",
-        description="A card type (case-insensitive). Any spaces and special characters are ignored",
-    ),
-    coins: Optional[int] = Query(
-        default=None, description="The amount of coins in a card's cost."
-    ),
-    potions: Optional[int] = Query(
-        default=None, description="The amount of potions in a card's cost."
-    ),
-    debt: Optional[int] = Query(
-        default=None, description="The amount of debt in a card's cost."
-    ),
-    in_supply: Optional[bool] = Query(
-        default=None,
-        alias="in-supply",
-        description="Whether the card is in the supply.",
-    ),
-):
+    name: Annotated[
+        str | None,
+        Query(
+            description="A card name (case-insensitive). Any spaces and special characters are ignored",
+        ),
+    ] = None,
+    expansion: Annotated[
+        Expansion | None,
+        Query(
+            description="An expansion (case-insensitive). Any spaces and special characters are ignored",
+        ),
+    ] = None,
+    card_types: Annotated[
+        list[CardType] | None,
+        Query(
+            alias="type",
+            description="A card type (case-insensitive). Any spaces and special characters are ignored",
+        ),
+    ] = None,
+    coins: Annotated[
+        int | None,
+        Query(description="The amount of coins in a card's cost."),
+    ] = None,
+    potions: Annotated[
+        int | None, Query(description="The amount of potions in a card's cost.")
+    ] = None,
+    debt: Annotated[
+        int | None,
+        Query(description="The amount of debt in a card's cost."),
+    ] = None,
+    in_supply: Annotated[
+        bool | None,
+        Query(
+            alias="in-supply",
+            description="Whether the card is in the supply.",
+        ),
+    ] = None,
+) -> list[DBCard]:
     cards = search_cards_with_query(
         db,
         name,
         expansion,
-        card_types,
+        card_types or [],
         coins,
         potions,
         debt,

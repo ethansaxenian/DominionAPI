@@ -7,7 +7,7 @@ from tqdm import tqdm
 
 from app.core.config import settings
 from app.core.utils import case_insensitive
-from app.db import get_db
+from app.db.utils import get_db
 
 deta = Deta(settings.DETA_PROJECT_KEY)
 

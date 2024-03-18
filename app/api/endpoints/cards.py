@@ -1,9 +1,9 @@
 from fastapi import APIRouter, HTTPException, Security, status
 
-from app.api.auth import get_api_key
-from app.api.schemas import BaseCard, Card
+from app.api.auth.api_key import get_api_key
+from app.api.schemas.card import BaseCard, Card
 from app.core.utils import autofill_card_attrs
-from app.db import (
+from app.db.crud import (
     DBType,
     delete_card,
     get_all_cards,
@@ -15,15 +15,15 @@ from app.db import (
 router = APIRouter()
 
 
-@router.get("/", response_model=list[Card])
-def get_cards(db: DBType):
+@router.get("/")
+def get_cards(db: DBType) -> list[Card]:
     cards = get_all_cards(db)
 
     return cards
 
 
-@router.get("/{id}", response_model=Card)
-def get_card(id: str, db: DBType):
+@router.get("/{id}")
+def get_card(id: str, db: DBType) -> Card:
     card = get_card_by_id(db, id)
 
     if card is None:
@@ -34,8 +34,8 @@ def get_card(id: str, db: DBType):
     return card
 
 
-@router.post("/", response_model=str, dependencies=[Security(get_api_key)])
-def add_card(card: BaseCard, db: DBType):
+@router.post("/", dependencies=[Security(get_api_key)])
+def add_card(card: BaseCard, db: DBType) -> str:
     new_card = autofill_card_attrs(card)
     return post_card(db, new_card)
 

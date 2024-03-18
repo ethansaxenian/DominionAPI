@@ -9,11 +9,11 @@ repository = "https://github.com/ethansaxenian/DominionAPI"
 homepage = "https://dominion-api.deta.dev/docs"
 
 [tool.poetry.dependencies]
-python = "^3.9"
-fastapi = "^0.96.1"
+python = "^3.12"
 python-dotenv = "^1.0.0"
 deta = "^1.1.0"
 uvicorn = "^0.22.0"
+fastapi = {extras = ["all"], version = "^0.110.0"}
 
 [tool.poetry.group.dev.dependencies]
 beautifulsoup4 = "^4.12.2"

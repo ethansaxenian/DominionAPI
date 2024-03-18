@@ -1,5 +1,3 @@
-from typing import Optional
-
 from pydantic import BaseModel, HttpUrl
 
 from .enums import CardType, Expansion
@@ -9,9 +7,9 @@ class BaseCard(BaseModel):
     name: str
     expansion: Expansion
     types: list[CardType]
-    coins: Optional[int]
-    potions: Optional[int]
-    debt: Optional[int]
+    coins: int | None = None
+    potions: int | None = None
+    debt: int | None = None
     text: str
     img_path: HttpUrl
     link: HttpUrl
