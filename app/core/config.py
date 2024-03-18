@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from pydantic import HttpUrl
+from pydantic import HttpUrl, TypeAdapter
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 description = """
@@ -10,6 +10,8 @@ description = """
     <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub" width="40"/>
 </a>
 """
+
+url_adapter: TypeAdapter[HttpUrl] = TypeAdapter(HttpUrl)
 
 
 class Settings(BaseSettings):
@@ -21,14 +23,18 @@ class Settings(BaseSettings):
     AUTHOR_NAME: str = "Ethan Saxenian"
     AUTHOR_EMAIL: str = "ethansaxenian+github@proton.me"
     LICENSE: str = "MIT"
-    CARD_LIST_URL: HttpUrl = "http://wiki.dominionstrategy.com/index.php/List_of_cards"
+    CARD_LIST_URL: HttpUrl = url_adapter.validate_strings(
+        "http://wiki.dominionstrategy.com/index.php/List_of_cards"
+    )
     API_KEY: str | None
     API_KEY_NAME: str = "api_key"
     DETA_PROJECT_KEY: str
     DETA_BASE_NAME: str = "dominion-db"
     DETA_DRIVE_NAME: str = "dominion-images"
 
-    model_config = SettingsConfigDict(env_file=".env", case_sensitive=True)
+    model_config = SettingsConfigDict(
+        env_file=".env", case_sensitive=True, validate_default=True
+    )
 
 
 settings = Settings()

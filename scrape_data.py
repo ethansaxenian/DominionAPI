@@ -25,7 +25,7 @@ NON_SUPPLY_TYPES = [
 ]
 
 
-def get_cost(columns):
+def get_cost(columns) -> dict[str, int | None]:
     images = columns[3].find_all("img")
     costs = [
         str(image)
@@ -37,7 +37,7 @@ def get_cost(columns):
         .removeprefix("$")
         for image in images
     ]
-    cost = {"coins": None, "potions": None, "debt": None}
+    cost: dict[str, int | None] = {"coins": None, "potions": None, "debt": None}
     for item in costs:
         if item == "p":
             cost["potions"] = 1
@@ -49,7 +49,7 @@ def get_cost(columns):
     return cost
 
 
-def get_text(columns):
+def get_text(columns) -> str:
     html_text = columns[4]
     for span in html_text.find_all("span", class_="coin-icon"):
         img = html_text.find("img", alt=True)
@@ -64,14 +64,14 @@ def get_text(columns):
     return text
 
 
-def get_image(columns):
+def get_image(columns) -> str:
     img_tag = str(columns[0].find("img"))
     img = img_tag[img_tag.find("src") + 4 : img_tag.find("width")].strip().strip('"')
 
     return f"http://wiki.dominionstrategy.com{img}"
 
 
-def get_link(columns):
+def get_link(columns) -> str:
     link_tag = str(columns[0].find_all("a")[0])
     link = (
         link_tag[link_tag.find("href") + 5 : link_tag.find("title")].strip().strip('"')
@@ -80,17 +80,17 @@ def get_link(columns):
     return f"http://wiki.dominionstrategy.com{link}"
 
 
-def get_card_data(soup):
-    cards = []
+def get_card_data(soup: BeautifulSoup) -> list[dict[str, str | int | list[str] | bool]]:
+    cards: list[dict[str, str | int | list[str] | bool]] = []
 
     table_rows = soup.find_all("table", class_="wikitable sortable")[0].find_all("tr")
 
     pbar = tqdm(table_rows[1:], bar_format="{l_bar}{bar}| {n_fmt}/{total_fmt}")
     for row in pbar:
         columns = row.find_all("td")
-        name = columns[0].find_all("a")[0].find_all("span")[0].text
-        expansion = columns[1].find_all("a")[0].text
-        types = [word.strip() for word in columns[2].text.split("-")]
+        name: str = columns[0].find_all("a")[0].find_all("span")[0].text
+        expansion: str = columns[1].find_all("a")[0].text
+        types: list[str] = [word.strip() for word in columns[2].text.split("-")]
         cost = get_cost(columns)
         text = get_text(columns)
         img = get_image(columns)
@@ -115,14 +115,15 @@ def get_card_data(soup):
     return cards
 
 
-def write_to_file(data, path: Path):
+def write_to_file(
+    data: list[dict[str, str | int | list[str] | bool]], path: Path
+) -> None:
     with path.open("w") as file:
         file.write(json.dumps(data, indent=2))
 
 
 if __name__ == "__main__":
-    URL = settings.CARD_LIST_URL
-    page = requests.get(URL)
+    page = requests.get(str(settings.CARD_LIST_URL))
 
     soup = BeautifulSoup(page.content, "html.parser")
 
