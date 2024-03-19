@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, Security, status
 
 from app.api.auth.api_key import get_api_key
-from app.api.schemas.card import BaseCard, Card
+from app.api.schemas.card import BaseCard, Card, DBCard
 from app.core.utils import autofill_card_attrs
 from app.db.crud import (
     DBType,
@@ -16,7 +16,7 @@ router = APIRouter()
 
 
 @router.get("/")
-def get_cards(db: DBType) -> list[Card]:
+def get_cards(db: DBType) -> list[DBCard]:
     cards = get_all_cards(db)
 
     return cards
@@ -41,7 +41,7 @@ def add_card(card: BaseCard, db: DBType) -> str:
 
 
 @router.delete("/", dependencies=[Security(get_api_key)])
-def remove_card(id: str, db: DBType):
+def remove_card(id: str, db: DBType) -> None:
     delete_card(db, id)
     raise HTTPException(
         status_code=status.HTTP_200_OK, detail=f"Card with id {id} deleted"
@@ -49,7 +49,7 @@ def remove_card(id: str, db: DBType):
 
 
 @router.put("/{id}", dependencies=[Security(get_api_key)])
-def update_card(id: str, card: BaseCard, db: DBType):
+def update_card(id: str, card: BaseCard, db: DBType) -> None:
     new_card = autofill_card_attrs(card)
     res = put_card(db, id, new_card)
     if res is not None:

@@ -1,27 +1,27 @@
 import random
 from typing import Annotated
 
-import deta
-from deta.drive import DriveStreamingBody
+from deta.base import _Base
+from deta.drive import DriveStreamingBody, _Drive
 from fastapi import Depends
 from pydantic import ValidationError
 
-from app.api.schemas import CardCreate, DBCard
+from app.api.schemas.card import CardCreate, DBCard
 from app.api.schemas.enums import CardType
 from app.core.utils import case_insensitive
 
-from .init_db import get_db, get_drive
+from .utils import get_db, get_drive
 
-DBType = Annotated[deta.Base, Depends(get_db)]
-DriveType = Annotated[deta.Drive, Depends(get_drive)]
+DBType = Annotated[_Base, Depends(get_db)]
+DriveType = Annotated[_Drive, Depends(get_drive)]
 
 
-def get_all_cards(db: deta.Base) -> list[DBCard]:
+def get_all_cards(db: _Base) -> list[DBCard]:
     res = db.fetch()
     return [DBCard.model_validate(card) for card in res.items]
 
 
-def get_card_by_id(db: deta.Base, id: str) -> DBCard | None:
+def get_card_by_id(db: _Base, id: str) -> DBCard | None:
     card = db.get(id)
     try:
         return DBCard.model_validate(card)
@@ -29,7 +29,7 @@ def get_card_by_id(db: deta.Base, id: str) -> DBCard | None:
         return None
 
 
-def get_random_card(db: deta.Base) -> DBCard | None:
+def get_random_card(db: _Base) -> DBCard | None:
     card = random.choice(get_all_cards(db))
     try:
         return DBCard.model_validate(card)
@@ -38,7 +38,7 @@ def get_random_card(db: deta.Base) -> DBCard | None:
 
 
 def search_cards_with_query(
-    db: deta.Base,
+    db: _Base,
     name: str | None,
     expansion: str | None,
     card_types: list[CardType],
@@ -83,25 +83,23 @@ def search_cards_with_query(
     return [DBCard.model_validate(card) for card in cards]
 
 
-def post_card(db: deta.Base, new_card: CardCreate) -> str:
+def post_card(db: _Base, new_card: CardCreate) -> str:
     card = db.put(new_card.model_dump())
     return card.key
 
 
-def delete_card(db: deta.Base, id: str) -> None:
+def delete_card(db: _Base, id: str) -> None:
     db.delete(id)
 
 
-def put_card(db: deta.Base, id: str, card: CardCreate) -> Exception | None:
+def put_card(db: _Base, id: str, card: CardCreate) -> Exception | None:
     try:
         db.update(card.model_dump(), id)
     except Exception as e:
         return e
 
 
-def get_image_by_id(
-    db: deta.Base, drive: deta.Drive, id: str
-) -> DriveStreamingBody | None:
+def get_image_by_id(db: _Base, drive: _Drive, id: str) -> DriveStreamingBody | None:
     if (card := get_card_by_id(db, id)) is None:
         return None
 
